@@ -2,6 +2,7 @@
 
 namespace App\Middleware;
 
-interface MiddlewareInterface {
+interface MiddlewareInterface
+{
     public function handle($request, \Closure $next);
 }

@@ -1,11 +1,11 @@
 <?php
-$title = "Voucher Templates";
+$title = 'Voucher Templates';
 $no_main_container = true;
-require_once ROOT . '/app/Views/layouts/header_main.php';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 ?>
 
 <!-- Sub-Navbar Navigation -->
-<?php include ROOT . '/app/Views/layouts/sidebar_settings.php'; ?>
+<?php include ROOT.'/app/Views/layouts/sidebar_settings.php'; ?>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full flex flex-col">
 
@@ -55,11 +55,11 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                         </div>
                     </div>
 
-                    <?php if (!empty($templates)): ?>
-                        <?php foreach ($templates as $tpl): ?>
+                    <?php if (! empty($templates)) { ?>
+                        <?php foreach ($templates as $tpl) { ?>
                         <div class="border border-accents-2 rounded-xl overflow-hidden bg-background hover:shadow-sm transition-shadow flex flex-col h-full">
                 <div class="aspect-video bg-white relative group overflow-hidden">
-                    <?php if (!empty($tpl['content'])): ?>
+                    <?php if (! empty($tpl['content'])) { ?>
                         <div class="w-full h-full bg-accents-1 relative overflow-hidden flex items-center justify-center group">
                             <!-- Loading Overlay -->
                             <div class="absolute inset-0 flex items-center justify-center bg-accents-1 z-10 transition-opacity duration-500 pointer-events-none input-overlay">
@@ -72,12 +72,12 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                                 scrolling="no"
                             ></iframe>
                         </div>
-                    <?php else: ?>
+                    <?php } else { ?>
                         <!-- Placeholder for Preview Thumb -->
                          <div class="absolute inset-0 flex items-center justify-center text-accents-3 bg-accents-1">
                              <i data-lucide="file-code" class="w-8 h-8 opacity-50"></i>
                         </div>
-                    <?php endif; ?>
+                    <?php } ?>
                 </div>
                 <div class="p-4 flex flex-col flex-grow">
                                 <div class="flex items-center justify-between mb-2">
@@ -100,14 +100,14 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                                 </div>
                             </div>
                         </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
+                        <?php } ?>
+                    <?php } ?>
                 </div>
             </div> <!-- End Space-y-6 -->
         </div> <!-- End Content Area -->
 
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {

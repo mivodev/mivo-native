@@ -17,24 +17,24 @@ class Hooks
     /**
      * Register a new action
      *
-     * @param string   $tag      The name of the action hook
-     * @param callable $callback The function to call
-     * @param int      $priority Lower numbers correspond to earlier execution
-     * @param int      $accepted_args The number of arguments the function accepts
+     * @param  string  $tag  The name of the action hook
+     * @param  callable  $callback  The function to call
+     * @param  int  $priority  Lower numbers correspond to earlier execution
+     * @param  int  $accepted_args  The number of arguments the function accepts
      */
     public static function addAction($tag, $callback, $priority = 10, $accepted_args = 1)
     {
         self::$actions[$tag][$priority][] = [
-            'function'      => $callback,
-            'accepted_args' => $accepted_args
+            'function' => $callback,
+            'accepted_args' => $accepted_args,
         ];
     }
 
     /**
      * Execute an action
      *
-     * @param string $tag The name of the action hook
-     * @param mixed  ...$args Optional arguments to pass to the callback
+     * @param  string  $tag  The name of the action hook
+     * @param  mixed  ...$args  Optional arguments to pass to the callback
      */
     public static function doAction($tag, ...$args)
     {
@@ -55,25 +55,25 @@ class Hooks
     /**
      * Register a new filter
      *
-     * @param string   $tag      The name of the filter hook
-     * @param callable $callback The function to call
-     * @param int      $priority Lower numbers correspond to earlier execution
-     * @param int      $accepted_args The number of arguments the function accepts
+     * @param  string  $tag  The name of the filter hook
+     * @param  callable  $callback  The function to call
+     * @param  int  $priority  Lower numbers correspond to earlier execution
+     * @param  int  $accepted_args  The number of arguments the function accepts
      */
     public static function addFilter($tag, $callback, $priority = 10, $accepted_args = 1)
     {
         self::$filters[$tag][$priority][] = [
-            'function'      => $callback,
-            'accepted_args' => $accepted_args
+            'function' => $callback,
+            'accepted_args' => $accepted_args,
         ];
     }
 
     /**
      * Apply filters to a value
      *
-     * @param string $tag   The name of the filter hook
-     * @param mixed  $value The value to be filtered
-     * @param mixed  ...$args Optional extra arguments
+     * @param  string  $tag  The name of the filter hook
+     * @param  mixed  $value  The value to be filtered
+     * @param  mixed  ...$args  Optional extra arguments
      * @return mixed The filtered value
      */
     public static function applyFilters($tag, $value, ...$args)
@@ -99,7 +99,7 @@ class Hooks
     /**
      * Check if any action has been registered for a hook.
      *
-     * @param string $tag The name of the action hook.
+     * @param  string  $tag  The name of the action hook.
      * @return bool True if action exists, false otherwise.
      */
     public static function hasAction($tag)
@@ -110,7 +110,7 @@ class Hooks
     /**
      * Check if any filter has been registered for a hook.
      *
-     * @param string $tag The name of the filter hook.
+     * @param  string  $tag  The name of the filter hook.
      * @return bool True if filter exists, false otherwise.
      */
     public static function hasFilter($tag)

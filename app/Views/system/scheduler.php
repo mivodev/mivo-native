@@ -1,6 +1,6 @@
 <?php
-$title = "Scheduler";
-require_once ROOT . '/app/Views/layouts/header_main.php';
+$title = 'Scheduler';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 ?>
 
 <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
@@ -18,12 +18,12 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
     </div>
 </div>
 
-<?php if (isset($error) && $error): ?>
+<?php if (isset($error) && $error) { ?>
     <div class="bg-red-50 text-red-600 p-4 rounded-lg mb-6 flex items-center">
         <i data-lucide="alert-circle" class="w-5 h-5 mr-3"></i>
         <?= htmlspecialchars($error) ?>
     </div>
-<?php endif; ?>
+<?php } ?>
 
 <div class="space-y-4">
      <!-- Filter Bar -->
@@ -49,10 +49,10 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                 </tr>
             </thead>
             <tbody id="table-body">
-                <?php if (!empty($schedulers) && is_array($schedulers)): ?>
-                    <?php foreach ($schedulers as $task): 
-                            $status = ($task['disabled'] === 'true') ? 'disabled' : 'enabled';
-                    ?>
+                <?php if (! empty($schedulers) && is_array($schedulers)) { ?>
+                    <?php foreach ($schedulers as $task) {
+                        $status = ($task['disabled'] === 'true') ? 'disabled' : 'enabled';
+                        ?>
                     <tr class="table-row-item"
                             data-id="<?= $task['.id'] ?>"
                             data-name="<?= htmlspecialchars($task['name']) ?>"
@@ -71,11 +71,11 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                         <td class="text-sm text-accents-5"><?= htmlspecialchars($task['interval']) ?></td>
                         <td class="text-sm text-accents-5"><?= htmlspecialchars($task['next-run'] ?? '-') ?></td>
                         <td>
-                                <?php if ($task['disabled'] === 'true'): ?>
+                                <?php if ($task['disabled'] === 'true') { ?>
                                 <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-accents-2 text-accents-5" data-i18n="system_tools.disabled">Disabled</span>
-                            <?php else: ?>
+                            <?php } else { ?>
                                 <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400" data-i18n="system_tools.enabled">Enabled</span>
-                            <?php endif; ?>
+                            <?php } ?>
                         </td>
                         <td class="text-right text-sm font-medium">
                             <div class="flex items-center justify-end gap-2 table-actions-reveal">
@@ -91,8 +91,8 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                             </div>
                         </td>
                     </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                    <?php } ?>
+                <?php } ?>
             </tbody>
         </table>
         
@@ -304,4 +304,4 @@ function openSchedulerModal(mode, btn = null) {
     </div>
 </template>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>

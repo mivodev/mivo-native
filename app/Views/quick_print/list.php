@@ -1,7 +1,7 @@
 <?php
 // Quick Print Management (List & CRUD)
 $title = 'Manage Quick Print';
-require_once ROOT . '/app/Views/layouts/header_main.php';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 ?>
 
 <div class="space-y-6">
@@ -47,12 +47,12 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                 </tr>
             </thead>
             <tbody id="table-body">
-                <?php if (empty($packages)): ?>
+                <?php if (empty($packages)) { ?>
                 <tr>
                     <td colspan="6" class="p-8 text-center text-accents-5" data-i18n="quick_print.no_packages_found">No packages found.</td>
                 </tr>
-                <?php else: ?>
-                    <?php foreach ($packages as $pkg): ?>
+                <?php } else { ?>
+                    <?php foreach ($packages as $pkg) { ?>
                     <tr class="table-row-item group"
                         data-id="<?= htmlspecialchars($pkg['id']) ?>"
                         data-name="<?= htmlspecialchars($pkg['name']) ?>"
@@ -92,8 +92,8 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                             </div>
                         </td>
                     </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                    <?php } ?>
+                <?php } ?>
             </tbody>
         </table>
         
@@ -128,9 +128,9 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
             <div>
                  <label class="form-label" data-i18n="quick_print.select_profile">Select Profile</label>
                  <select name="profile" class="w-full" data-search="true">
-                    <?php foreach($profiles as $p): ?>
+                    <?php foreach ($profiles as $p) { ?>
                         <option value="<?= htmlspecialchars($p['name']) ?>"><?= htmlspecialchars($p['name']) ?></option>
-                    <?php endforeach; ?>
+                    <?php } ?>
                  </select>
             </div>
 
@@ -360,4 +360,4 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
     });
 </script>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>

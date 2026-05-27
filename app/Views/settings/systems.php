@@ -1,11 +1,11 @@
 <?php
-$title = "Settings";
+$title = 'Settings';
 $no_main_container = true;
-require_once ROOT . '/app/Views/layouts/header_main.php';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 ?>
 
 <!-- Sub-Navbar Navigation -->
-<?php include ROOT . '/app/Views/layouts/sidebar_settings.php'; ?>
+<?php include ROOT.'/app/Views/layouts/sidebar_settings.php'; ?>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full flex flex-col">
 
@@ -119,4 +119,4 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
         </div>
     </div>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>

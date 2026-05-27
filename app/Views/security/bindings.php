@@ -1,10 +1,10 @@
 <?php
-$title = "IP Bindings";
-require_once ROOT . '/app/Views/layouts/header_main.php';
+$title = 'IP Bindings';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 
 // Filter Data
 $uniqueTypes = [];
-if (!empty($items)) {
+if (! empty($items)) {
     foreach ($items as $item) {
         $t = $item['type'] ?? 'regular';
         $uniqueTypes[$t] = $t;
@@ -25,12 +25,12 @@ sort($uniqueTypes);
     </div>
 </div>
 
-<?php if ($error): ?>
+<?php if ($error) { ?>
     <div class="bg-red-50 text-red-600 p-4 rounded-lg mb-6 flex items-center shadow-sm">
         <i data-lucide="alert-circle" class="w-5 h-5 mr-3"></i>
         <?= htmlspecialchars($error) ?>
     </div>
-<?php endif; ?>
+<?php } ?>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
     <!-- List (2/3) -->
@@ -74,8 +74,8 @@ sort($uniqueTypes);
                     </tr>
                 </thead>
                 <tbody id="table-body">
-                    <?php if (!empty($items)): ?>
-                        <?php foreach ($items as $item): ?>
+                    <?php if (! empty($items)) { ?>
+                        <?php foreach ($items as $item) { ?>
                         <tr class="table-row-item"
                             data-type="<?= htmlspecialchars($item['type'] ?? 'regular') ?>"
                             data-mac="<?= strtolower($item['mac-address'] ?? '') ?>"
@@ -93,11 +93,15 @@ sort($uniqueTypes);
                             <td><span class="text-sm text-foreground"><?= htmlspecialchars($item['address'] ?? '-') ?></span></td>
                             <td><span class="text-sm text-foreground"><?= htmlspecialchars($item['to-address'] ?? '-') ?></span></td>
                             <td>
-                                <?php 
+                                <?php
                                     $typeClass = 'bg-accents-2 text-accents-6 border border-accents-3';
-                                    if (($item['type']??'') == 'bypassed') $typeClass = 'bg-green-100 text-green-800 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800';
-                                    if (($item['type']??'') == 'blocked') $typeClass = 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800';
-                                ?>
+                            if (($item['type'] ?? '') == 'bypassed') {
+                                $typeClass = 'bg-green-100 text-green-800 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800';
+                            }
+                            if (($item['type'] ?? '') == 'blocked') {
+                                $typeClass = 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800';
+                            }
+                            ?>
                                 <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium <?= $typeClass ?>">
                                     <?= htmlspecialchars($item['type'] ?? 'regular') ?>
                                 </span>
@@ -115,8 +119,8 @@ sort($uniqueTypes);
                                 </div>
                             </td>
                         </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
+                        <?php } ?>
+                    <?php } ?>
                 </tbody>
             </table>
              <!-- Pagination -->
@@ -215,7 +219,7 @@ sort($uniqueTypes);
     </div>
 </div>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>
 <script>
     class TableManager {
         constructor(rows, itemsPerPage = 10) {

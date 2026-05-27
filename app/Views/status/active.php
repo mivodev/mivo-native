@@ -1,13 +1,18 @@
 <?php
-$title = "Active Users";
-require_once ROOT . '/app/Views/layouts/header_main.php';
+
+use App\Helpers\FormatHelper;
+
+$title = 'Active Users';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 
 // Filter Data
 $uniqueServers = [];
-if (!empty($items)) {
+if (! empty($items)) {
     foreach ($items as $item) {
         $s = $item['server'] ?? '';
-        if(!empty($s)) $uniqueServers[$s] = $s;
+        if (! empty($s)) {
+            $uniqueServers[$s] = $s;
+        }
     }
 }
 sort($uniqueServers);
@@ -28,12 +33,12 @@ sort($uniqueServers);
     </div>
 </div>
 
-<?php if ($error): ?>
+<?php if ($error) { ?>
     <div class="bg-red-50 text-red-600 p-4 rounded-lg mb-6 flex items-center">
         <i data-lucide="alert-circle" class="w-5 h-5 mr-3"></i>
         <?= htmlspecialchars($error) ?>
     </div>
-<?php endif; ?>
+<?php } ?>
 
 <div class="space-y-4">
     <!-- Filter Bar -->
@@ -50,9 +55,9 @@ sort($uniqueServers);
             <div class="w-40">
                 <select id="filter-server" class="custom-select" data-search="true">
                     <option value="" data-i18n="hotspot_active.filter_server">All Servers</option>
-                    <?php foreach($uniqueServers as $s): ?>
+                    <?php foreach ($uniqueServers as $s) { ?>
                         <option value="<?= htmlspecialchars($s) ?>"><?= htmlspecialchars($s) ?></option>
-                    <?php endforeach; ?>
+                    <?php } ?>
                 </select>
             </div>
         </div>
@@ -74,8 +79,8 @@ sort($uniqueServers);
                 </tr>
             </thead>
             <tbody id="table-body">
-                <?php if (!empty($items)): ?>
-                    <?php foreach ($items as $item): ?>
+                <?php if (! empty($items)) { ?>
+                    <?php foreach ($items as $item) { ?>
                     <tr class="table-row-item"
                         data-server="<?= htmlspecialchars($item['server'] ?? '') ?>"
                         data-user="<?= strtolower($item['user'] ?? '') ?>"
@@ -98,15 +103,15 @@ sort($uniqueServers);
                             <div class="text-xs text-accents-5 font-mono"><?= htmlspecialchars($item['mac-address'] ?? '-') ?></div>
                         </td>
                         <td>
-                             <div class="text-sm text-foreground"><?= \App\Helpers\FormatHelper::elapsedTime($item['uptime'] ?? '0s') ?></div>
-                             <?php if(isset($item['session-time-left'])): ?>
-                                <div class="text-xs text-accents-5"><span data-i18n="hotspot_active.time_left">Left</span>: <?= \App\Helpers\FormatHelper::elapsedTime($item['session-time-left']) ?></div>
-                             <?php endif; ?>
+                             <div class="text-sm text-foreground"><?= FormatHelper::elapsedTime($item['uptime'] ?? '0s') ?></div>
+                             <?php if (isset($item['session-time-left'])) { ?>
+                                <div class="text-xs text-accents-5"><span data-i18n="hotspot_active.time_left">Left</span>: <?= FormatHelper::elapsedTime($item['session-time-left']) ?></div>
+                             <?php } ?>
                         </td>
                         <td>
                             <div class="text-xs text-accents-5 flex flex-col gap-1">
-                                <span class="flex items-center"><i data-lucide="arrow-down" class="w-3 h-3 mr-1 text-green-500"></i> <?= \App\Helpers\FormatHelper::formatBytes($item['bytes-in'] ?? 0) ?></span>
-                                <span class="flex items-center"><i data-lucide="arrow-up" class="w-3 h-3 mr-1 text-blue-500"></i> <?= \App\Helpers\FormatHelper::formatBytes($item['bytes-out'] ?? 0) ?></span>
+                                <span class="flex items-center"><i data-lucide="arrow-down" class="w-3 h-3 mr-1 text-green-500"></i> <?= FormatHelper::formatBytes($item['bytes-in'] ?? 0) ?></span>
+                                <span class="flex items-center"><i data-lucide="arrow-up" class="w-3 h-3 mr-1 text-blue-500"></i> <?= FormatHelper::formatBytes($item['bytes-out'] ?? 0) ?></span>
                             </div>
                         </td>
                         <td class="text-right text-sm font-medium">
@@ -121,8 +126,8 @@ sort($uniqueServers);
                             </div>
                         </td>
                     </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                    <?php } ?>
+                <?php } ?>
             </tbody>
         </table>
          <!-- Pagination -->
@@ -139,7 +144,7 @@ sort($uniqueServers);
     </div>
 </div>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>
 <script>
     class TableManager {
         constructor(rows, itemsPerPage = 10) {

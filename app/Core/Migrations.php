@@ -2,19 +2,20 @@
 
 namespace App\Core;
 
-class Migrations {
-    
-    public static function up() {
+class Migrations
+{
+    public static function up()
+    {
         $db = Database::getInstance();
         $pdo = $db->getConnection();
-        
+
         // 1. Users Table (Admin Credentials)
-        $pdo->exec("CREATE TABLE IF NOT EXISTS users (
+        $pdo->exec('CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT NOT NULL UNIQUE,
             password TEXT NOT NULL,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        )");
+        )');
 
         // 2. Routers (Sessions) Table
         $pdo->exec("CREATE TABLE IF NOT EXISTS routers (
@@ -43,20 +44,20 @@ class Migrations {
         )");
 
         // 4. Settings (Key-Value Store)
-        $pdo->exec("CREATE TABLE IF NOT EXISTS settings (
+        $pdo->exec('CREATE TABLE IF NOT EXISTS settings (
             key TEXT PRIMARY KEY,
             value TEXT NOT NULL
-        )");
+        )');
 
         // 5. Logos (Branding)
-        $pdo->exec("CREATE TABLE IF NOT EXISTS logos (
+        $pdo->exec('CREATE TABLE IF NOT EXISTS logos (
             id TEXT PRIMARY KEY,
             name TEXT NOT NULL,
             path TEXT NOT NULL,
             type TEXT,
             size INTEGER,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        )");
+        )');
 
         // 6. Quick Prints (Voucher Printing Profiles)
         $pdo->exec("CREATE TABLE IF NOT EXISTS quick_prints (
@@ -79,7 +80,7 @@ class Migrations {
         )");
 
         // 7. Voucher Templates
-        $pdo->exec("CREATE TABLE IF NOT EXISTS voucher_templates (
+        $pdo->exec('CREATE TABLE IF NOT EXISTS voucher_templates (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             router_id INTEGER,
             session_name TEXT NOT NULL,
@@ -87,7 +88,7 @@ class Migrations {
             content TEXT NOT NULL,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        )");
+        )');
 
         // 8. API CORS Rules
         $pdo->exec("CREATE TABLE IF NOT EXISTS api_cors (
@@ -98,7 +99,7 @@ class Migrations {
             max_age INTEGER DEFAULT 3600,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )");
-        
+
         return true;
     }
 }

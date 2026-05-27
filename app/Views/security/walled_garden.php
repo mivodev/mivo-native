@@ -1,6 +1,6 @@
 <?php
-$title = "Walled Garden";
-require_once ROOT . '/app/Views/layouts/header_main.php';
+$title = 'Walled Garden';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 ?>
 
 <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
@@ -15,12 +15,12 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
     </div>
 </div>
 
-<?php if ($error): ?>
+<?php if ($error) { ?>
     <div class="bg-red-50 text-red-600 p-4 rounded-lg mb-6 flex items-center shadow-sm">
         <i data-lucide="alert-circle" class="w-5 h-5 mr-3"></i>
         <?= htmlspecialchars($error) ?>
     </div>
-<?php endif; ?>
+<?php } ?>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
     <!-- List (2/3) -->
@@ -62,8 +62,8 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                     </tr>
                 </thead>
                 <tbody id="table-body">
-                    <?php if (!empty($items)): ?>
-                        <?php foreach ($items as $item): ?>
+                    <?php if (! empty($items)) { ?>
+                        <?php foreach ($items as $item) { ?>
                         <tr class="table-row-item"
                             data-action="<?= htmlspecialchars($item['action'] ?? 'allow') ?>"
                             data-host="<?= strtolower($item['dst-host'] ?? '') ?>"
@@ -82,11 +82,15 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                                 <div class="text-sm text-foreground"><?= htmlspecialchars($item['protocol'] ?? 'Any') ?> : <?= htmlspecialchars($item['dst-port'] ?? 'Any') ?></div>
                             </td>
                             <td>
-                                <?php 
+                                <?php
                                     $actionClass = 'bg-accents-2 text-accents-6 border border-accents-3';
-                                    if (($item['action']??'') == 'allow') $actionClass = 'bg-green-100 text-green-800 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800';
-                                    if (($item['action']??'') == 'deny') $actionClass = 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800';
-                                ?>
+                            if (($item['action'] ?? '') == 'allow') {
+                                $actionClass = 'bg-green-100 text-green-800 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800';
+                            }
+                            if (($item['action'] ?? '') == 'deny') {
+                                $actionClass = 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800';
+                            }
+                            ?>
                                 <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium <?= $actionClass ?>">
                                     <?= htmlspecialchars($item['action'] ?? 'allow') ?>
                                 </span>
@@ -104,8 +108,8 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                                 </div>
                             </td>
                         </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
+                        <?php } ?>
+                    <?php } ?>
                 </tbody>
             </table>
 
@@ -213,7 +217,7 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
     </div>
 </div>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>
 <script>
     class TableManager {
         constructor(rows, itemsPerPage = 10) {

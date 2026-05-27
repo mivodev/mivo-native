@@ -9,7 +9,7 @@ $initialContent = $template['content'] ?? '<div style="border: 1px solid #000; p
     <p>Price: {{price}}</p>
     <p>Valid: {{validity}}</p>
 </div>';
-require_once ROOT . '/app/Views/layouts/header_main.php';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 ?>
 
 <style>
@@ -30,9 +30,9 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
         </div>
         
         <form id="templateForm" action="<?= $isEdit ? '/settings/voucher-templates/update' : '/settings/voucher-templates/store' ?>" method="POST" class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
-            <?php if ($isEdit): ?>
+            <?php if ($isEdit) { ?>
                 <input type="hidden" name="id" value="<?= $template['id'] ?>">
-            <?php endif; ?>
+            <?php } ?>
             
             <input type="text" name="name" value="<?= htmlspecialchars($template['name'] ?? 'New Template') ?>" required class="form-input w-full lg:w-64" placeholder="Template Name" data-i18n-placeholder="settings.template_name">
             
@@ -431,4 +431,4 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
 
 </script>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>

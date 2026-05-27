@@ -1,13 +1,15 @@
 <?php
-$title = "DHCP Leases";
-require_once ROOT . '/app/Views/layouts/header_main.php';
+$title = 'DHCP Leases';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 
 // Filter Data
 $uniqueServers = [];
-if (!empty($leases)) {
+if (! empty($leases)) {
     foreach ($leases as $lease) {
         $s = $lease['server'] ?? '';
-        if(!empty($s)) $uniqueServers[$s] = $s;
+        if (! empty($s)) {
+            $uniqueServers[$s] = $s;
+        }
     }
 }
 sort($uniqueServers);
@@ -28,12 +30,12 @@ sort($uniqueServers);
     </div>
 </div>
 
-<?php if (isset($error) && $error): ?>
+<?php if (isset($error) && $error) { ?>
     <div class="bg-red-50 text-red-600 p-4 rounded-lg mb-6 flex items-center">
         <i data-lucide="alert-circle" class="w-5 h-5 mr-3"></i>
         <?= htmlspecialchars($error) ?>
     </div>
-<?php endif; ?>
+<?php } ?>
 
 <div class="space-y-4">
     <!-- Filter Bar -->
@@ -50,9 +52,9 @@ sort($uniqueServers);
             <div class="w-40">
                 <select id="filter-server" class="custom-select" data-search="true">
                     <option value="" data-i18n="dhcp.all_servers">All Servers</option>
-                    <?php foreach($uniqueServers as $s): ?>
+                    <?php foreach ($uniqueServers as $s) { ?>
                         <option value="<?= htmlspecialchars($s) ?>"><?= htmlspecialchars($s) ?></option>
-                    <?php endforeach; ?>
+                    <?php } ?>
                 </select>
             </div>
         </div>
@@ -70,12 +72,12 @@ sort($uniqueServers);
                 </tr>
             </thead>
             <tbody id="table-body">
-                <?php if (!empty($leases)): ?>
-                    <?php foreach ($leases as $lease): 
-                         $status = $lease['status'] ?? 'unknown';
-                         $isBound = $status === 'bound';
-                         $statusClass = $isBound ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' : 'bg-accents-2 text-accents-5';
-                    ?>
+                <?php if (! empty($leases)) { ?>
+                    <?php foreach ($leases as $lease) {
+                        $status = $lease['status'] ?? 'unknown';
+                        $isBound = $status === 'bound';
+                        $statusClass = $isBound ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' : 'bg-accents-2 text-accents-5';
+                        ?>
                     <tr class="table-row-item group"
                          data-server="<?= htmlspecialchars($lease['server'] ?? '') ?>"
                          data-mac="<?= strtolower($lease['mac-address'] ?? '') ?>"
@@ -104,8 +106,8 @@ sort($uniqueServers);
                             <div class="text-sm text-accents-5"><?= htmlspecialchars($lease['host-name'] ?? $lease['comment'] ?? '-') ?></div>
                         </td>
                     </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                    <?php } ?>
+                <?php } ?>
             </tbody>
         </table>
         
@@ -123,7 +125,7 @@ sort($uniqueServers);
     </div>
 </div>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>
 <script>
     class TableManager {
         constructor(rows, itemsPerPage = 10) {

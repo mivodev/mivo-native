@@ -1,10 +1,12 @@
 <?php
 $uri = $_SERVER['REQUEST_URI'];
-function isActive($path, $current) {
+function isActive($path, $current)
+{
     if ($path === '/settings') {
         // Routers is the new home. Active if exactly /settings or /settings/routers
         return $current === '/settings' || $current === '/settings/' || strpos($current, '/settings/routers') !== false;
     }
+
     return strpos($current, $path) !== false;
 }
 
@@ -23,16 +25,16 @@ $menu = [
             
             <!-- Menu Container (Toggles between flex-row/scroll and grid) -->
             <div id="sub-navbar-menu" class="flex-1 flex flex-row items-center overflow-x-auto no-scrollbar mask-fade-right gap-2 transition-all duration-300">
-                <?php foreach($menu as $item): 
+                <?php foreach ($menu as $item) {
                     $active = isActive($item['url'], $uri);
-                ?>
+                    ?>
                 <a href="<?= $item['url'] ?>" 
                    class="sub-nav-item whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border border-transparent 
                    <?= $active ? 'bg-foreground text-background shadow-sm' : 'text-accents-5 hover:text-foreground hover:bg-accents-1' ?>"
-                   data-i18n="<?= ($item['namespace'] ?? 'settings') . '.' . $item['label'] ?>">
+                   data-i18n="<?= ($item['namespace'] ?? 'settings').'.'.$item['label'] ?>">
                     <?= $item['label'] ?>
                 </a>
-                <?php endforeach; ?>
+                <?php } ?>
             </div>
 
             <!-- Toggle Button -->

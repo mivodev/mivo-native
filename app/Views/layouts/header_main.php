@@ -1,9 +1,13 @@
 <?php
+
+use App\Config\SiteConfig;
+use App\Core\Hooks;
+
 // Initialize variables to avoid undefined notices if not set
-$hotspotname = isset($hotspotname) ? $hotspotname : \App\Config\SiteConfig::APP_NAME;
+$hotspotname = isset($hotspotname) ? $hotspotname : SiteConfig::APP_NAME;
 $themecolor = isset($themecolor) ? $themecolor : '#000000';
 $theme = 'light'; // Default theme
-$title = isset($title) ? $title : \App\Config\SiteConfig::APP_NAME;
+$title = isset($title) ? $title : SiteConfig::APP_NAME;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +59,7 @@ $title = isset($title) ? $title : \App\Config\SiteConfig::APP_NAME;
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/lucide.min.js"></script>
     <script>
-        window.currentVersion = '<?= \App\Config\SiteConfig::APP_VERSION ?>';
+        window.currentVersion = '<?= SiteConfig::APP_VERSION ?>';
     </script>
     <script src="/assets/js/mivo.js" defer></script>
     <script src="/assets/js/modules/updater.js" defer></script>
@@ -115,7 +119,7 @@ $title = isset($title) ? $title : \App\Config\SiteConfig::APP_NAME;
 
     </style>
     
-    <?php \App\Core\Hooks::doAction('mivo_head'); ?>
+    <?php Hooks::doAction('mivo_head'); ?>
 </head>
 <body class="flex flex-col min-h-screen bg-background text-foreground anti-aliased relative">
     <!-- Background Elements (Global Sci-Fi Grid) -->
@@ -125,17 +129,17 @@ $title = isset($title) ? $title : \App\Config\SiteConfig::APP_NAME;
         <div class="absolute -top-[20%] -left-[10%] w-[70vw] h-[70vw] rounded-full bg-blue-500/20 dark:bg-blue-500/5 blur-[120px] animate-pulse" style="animation-duration: 4s;"></div>
         <div class="absolute top-[30%] -right-[15%] w-[60vw] h-[60vw] rounded-full bg-purple-500/20 dark:bg-purple-500/5 blur-[100px] animate-pulse" style="animation-duration: 6s; animation-delay: 1s;"></div>
     </div>
-    <?php 
-    if (isset($session) && !empty($session)) {
+    <?php
+    if (isset($session) && ! empty($session)) {
         // Session Layout (Sidebar)
-        include ROOT . '/app/Views/layouts/sidebar_session.php'; 
+        include ROOT.'/app/Views/layouts/sidebar_session.php';
     } else {
         // Global Layout (Navbar)
-        include ROOT . '/app/Views/layouts/navbar_main.php';
-        if (!isset($no_main_container) || !$no_main_container) {
+        include ROOT.'/app/Views/layouts/navbar_main.php';
+        if (! isset($no_main_container) || ! $no_main_container) {
             echo '<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full flex flex-col">';
         }
     }
-    ?>
+?>
     
 

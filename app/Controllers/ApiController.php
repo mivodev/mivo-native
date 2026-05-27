@@ -4,23 +4,23 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Libraries\RouterOSAPI;
-
 use App\Models\Config;
-use App\Helpers\EncryptionHelper;
 
-class ApiController extends Controller {
-
-    public function getInterfaces() {
+class ApiController extends Controller
+{
+    public function getInterfaces()
+    {
         // Only allow POST
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             http_response_code(405);
             echo json_encode(['error' => 'Method Not Allowed']);
+
             return;
         }
 
         // Get JSON Input
         $input = json_decode(file_get_contents('php://input'), true);
-        
+
         $ip = $input['ip'] ?? '';
         $user = $input['user'] ?? '';
         $pass = $input['password'] ?? '';
@@ -28,10 +28,10 @@ class ApiController extends Controller {
         $port = $input['port'] ?? 8728; // Default port
 
         // Fallback to stored password if empty and ID provided (Edit Mode)
-        if (empty($pass) && !empty($id)) {
-            $configModel = new Config();
+        if (empty($pass) && ! empty($id)) {
+            $configModel = new Config;
             $session = $configModel->getSessionById($id);
-            if ($session && !empty($session['password'])) {
+            if ($session && ! empty($session['password'])) {
                 // Config::getSessionById already decrypts the password
                 $pass = $session['password'];
             }
@@ -40,12 +40,13 @@ class ApiController extends Controller {
         if (empty($ip) || empty($user)) {
             http_response_code(400);
             echo json_encode(['error' => 'IP Address and Username are required']);
+
             return;
         }
 
-        $api = new RouterOSAPI();
+        $api = new RouterOSAPI;
         // $api->debug = true; // Enable for debugging
-        $api->port = (int)$port;
+        $api->port = (int) $port;
 
         if ($api->connect($ip, $user, $pass)) {
             $api->write('/interface/print');
@@ -62,13 +63,13 @@ class ApiController extends Controller {
 
             // Return success
             echo json_encode([
-                'success' => true, 
-                'interfaces' => $list
+                'success' => true,
+                'interfaces' => $list,
             ]);
         } else {
             http_response_code(500);
             echo json_encode([
-                'error' => 'Connection failed. Check IP, User, Password, or connectivity.'
+                'error' => 'Connection failed. Check IP, User, Password, or connectivity.',
             ]);
         }
     }

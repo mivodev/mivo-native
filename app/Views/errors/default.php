@@ -2,11 +2,11 @@
 // Default values if not provided
 $errorCode = isset($code) ? $code : 404;
 $errorMessage = isset($message) ? $message : 'Page Not Found';
-$errorDescription = isset($description) ? $description : "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.";
+$errorDescription = isset($description) ? $description : 'The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.';
 
 // Ensure title is set for header.php
 $title = "$errorCode - $errorMessage";
-require_once ROOT . '/app/Views/layouts/header_main.php';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 ?>
 
 <div class="flex-grow flex flex-col items-center justify-center w-full">
@@ -37,4 +37,4 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
     </div>
 </div>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>

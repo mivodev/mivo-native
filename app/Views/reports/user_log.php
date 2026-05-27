@@ -1,15 +1,17 @@
 <?php
-$title = "User Log";
-require_once ROOT . '/app/Views/layouts/header_main.php';
+$title = 'User Log';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 
 // Prepare unique topics for filter
 $uniqueTopics = [];
-if (!empty($logs) && is_array($logs)) {
+if (! empty($logs) && is_array($logs)) {
     foreach ($logs as $log) {
         $t = $log['topics'] ?? '';
         // Split comma separated topics if needed, but usually it's one string or comma sep string
         // Simple approach: Use full string or main topic
-        if (!empty($t)) $uniqueTopics[$t] = $t;
+        if (! empty($t)) {
+            $uniqueTopics[$t] = $t;
+        }
     }
 }
 sort($uniqueTopics);
@@ -30,12 +32,12 @@ sort($uniqueTopics);
     </div>
 </div>
 
-<?php if (isset($error) && $error): ?>
+<?php if (isset($error) && $error) { ?>
     <div class="bg-red-50 text-red-600 p-4 rounded-lg mb-6 flex items-center">
         <i data-lucide="alert-circle" class="w-5 h-5 mr-3"></i>
         <?= htmlspecialchars($error) ?>
     </div>
-<?php endif; ?>
+<?php } ?>
 
 <div class="space-y-4">
     <!-- Filter Bar -->
@@ -56,9 +58,9 @@ sort($uniqueTopics);
                     <option value="hotspot,account,info,debug">hotspot,account,info,debug</option>
                     <option value="system,info,account">system,info,account</option>
                     <!-- Fallback to generated if diverse -->
-                    <?php foreach($uniqueTopics as $t): ?>
+                    <?php foreach ($uniqueTopics as $t) { ?>
                         <option value="<?= htmlspecialchars($t) ?>"><?= htmlspecialchars($t) ?></option>
-                    <?php endforeach; ?>
+                    <?php } ?>
                 </select>
             </div>
         </div>
@@ -74,12 +76,12 @@ sort($uniqueTopics);
                 </tr>
             </thead>
             <tbody id="table-body">
-                <?php if (!empty($logs) && is_array($logs)): ?>
-                    <?php foreach ($logs as $log): 
+                <?php if (! empty($logs) && is_array($logs)) { ?>
+                    <?php foreach ($logs as $log) {
                         $topics = $log['topics'] ?? '';
                         $isError = strpos($topics, 'error') !== false;
                         $rowClass = $isError ? 'text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10' : '';
-                    ?>
+                        ?>
                     <tr class="table-row-item <?= $rowClass ?>"
                             data-topics="<?= htmlspecialchars($topics) ?>"
                             data-message="<?= strtolower($log['message'] ?? '') ?>">
@@ -96,8 +98,8 @@ sort($uniqueTopics);
                             <?= htmlspecialchars($log['message'] ?? '-') ?>
                         </td>
                     </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                    <?php } ?>
+                <?php } ?>
             </tbody>
         </table>
         
@@ -115,7 +117,7 @@ sort($uniqueTopics);
     </div>
 </div>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>
 <script>
     class TableManager {
         constructor(rows, itemsPerPage = 15) {

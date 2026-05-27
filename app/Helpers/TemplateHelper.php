@@ -2,9 +2,10 @@
 
 namespace App\Helpers;
 
-class TemplateHelper {
-
-    public static function getDefaultTemplate() {
+class TemplateHelper
+{
+    public static function getDefaultTemplate()
+    {
         return '
 <style>
     .voucher { width: 250px; background: #fff; padding: 10px; border: 1px solid #ccc; font-family: "Courier New", Courier, monospace; color: #000; }
@@ -29,8 +30,11 @@ class TemplateHelper {
 </div>';
     }
 
-    public static function getMockContent($content) {
-        if (empty($content)) return '';
+    public static function getMockContent($content)
+    {
+        if (empty($content)) {
+            return '';
+        }
 
         // Dummy Data
         $dummyData = [
@@ -48,16 +52,17 @@ class TemplateHelper {
             '{{comment}}' => 'Thank You',
             '{{copyright}}' => 'Mivo',
         ];
-        
+
         $content = str_replace(array_keys($dummyData), array_values($dummyData), $content);
-        
+
         // QR Code replacement - Using canvas for client-side rendering with QRious
         $content = preg_replace('/\{\{\s*qrcode\s*(.*?)\s*\}\}/i', '<canvas class="qrcode-placeholder" data-options=\'$1\' style="width:80px;height:80px;display:inline-block;"></canvas>', $content);
 
         return $content;
     }
 
-    public static function getPreviewPage($content) {
+    public static function getPreviewPage($content)
+    {
         $mockContent = self::getMockContent($content);
 
         return '
@@ -72,7 +77,7 @@ class TemplateHelper {
             <script src="/assets/js/qrious.min.js"></script>
         </head>
         <body>
-            <div id="wrapper">' . $mockContent . '</div>
+            <div id="wrapper">'.$mockContent.'</div>
             <script>
                 window.addEventListener("load", () => {
                     const wrap = document.getElementById("wrapper");

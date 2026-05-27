@@ -33,10 +33,10 @@
     <script src="/assets/js/qrious.min.js"></script>
 </head>
 <body>
-    <?php include __DIR__ . '/toolbar.php'; ?>
+    <?php include __DIR__.'/toolbar.php'; ?>
 
     <div class="voucher-container">
-        <?php foreach($users as $index => $u): ?>
+        <?php foreach ($users as $index => $u) { ?>
         <div class="voucher">
             <div class="header"><?= htmlspecialchars($u['dns_name']) ?></div>
             <div class="row"><span>Profile:</span> <span><?= htmlspecialchars($u['profile']) ?></span></div>
@@ -65,7 +65,7 @@
                 });
             })();
         </script>
-        <?php endforeach; ?>
+        <?php } ?>
     </div>
 
     <script>

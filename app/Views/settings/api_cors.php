@@ -1,11 +1,11 @@
 <?php
-$title = "API CORS";
+$title = 'API CORS';
 $no_main_container = true;
-require_once ROOT . '/app/Views/layouts/header_main.php';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 ?>
 
 <!-- Sub-Navbar Navigation -->
-<?php include ROOT . '/app/Views/layouts/sidebar_settings.php'; ?>
+<?php include ROOT.'/app/Views/layouts/sidebar_settings.php'; ?>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full flex flex-col">
 
@@ -38,8 +38,8 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                     </tr>
                 </thead>
                 <tbody id="table-body">
-                    <?php if (!empty($rules)): ?>
-                        <?php foreach ($rules as $rule): ?>
+                    <?php if (! empty($rules)) { ?>
+                        <?php foreach ($rules as $rule) { ?>
                         <tr class="table-row-item" 
                             data-rule-id="<?= $rule['id'] ?>"
                             data-origin="<?= htmlspecialchars($rule['origin']) ?>"
@@ -52,9 +52,9 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                             </td>
                             <td>
                                 <div class="flex flex-wrap gap-1">
-                                    <?php foreach ($rule['methods_arr'] as $method): ?>
+                                    <?php foreach ($rule['methods_arr'] as $method) { ?>
                                         <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400"><?= htmlspecialchars($method) ?></span>
-                                    <?php endforeach; ?>
+                                    <?php } ?>
                                 </div>
                             </td>
                             <td>
@@ -74,8 +74,8 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                                 </div>
                             </td>
                         </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
+                        <?php } ?>
+                    <?php } else { ?>
                         <tr>
                             <td colspan="4" class="px-6 py-12 text-center">
                                 <div class="flex flex-col items-center">
@@ -84,7 +84,7 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                                 </div>
                             </td>
                         </tr>
-                    <?php endif; ?>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>
@@ -138,12 +138,12 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
         <div>
             <label class="form-label" data-i18n="settings.methods">Allowed Methods</label>
             <div class="grid grid-cols-3 gap-2">
-                <?php foreach(['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD'] as $m): ?>
+                <?php foreach (['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD'] as $m) { ?>
                 <label class="flex items-center gap-2 cursor-pointer">
                     <input type="checkbox" name="methods[]" value="<?= $m ?>" class="checkbox" <?= in_array($m, ['GET', 'POST']) ? 'checked' : '' ?>>
                     <span class="text-sm font-medium"><?= $m ?></span>
                 </label>
-                <?php endforeach; ?>
+                <?php } ?>
             </div>
         </div>
         <div>
@@ -157,4 +157,4 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
     </form>
 </template>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>

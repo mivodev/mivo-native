@@ -1,13 +1,15 @@
 <?php
-$title = "User Profiles";
-require_once ROOT . '/app/Views/layouts/header_main.php';
+$title = 'User Profiles';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 
 // Prepare Filters Data
 $uniqueModes = [];
-if (!empty($profiles)) {
+if (! empty($profiles)) {
     foreach ($profiles as $p) {
         $m = $p['meta']['expired_mode_formatted'] ?? '';
-        if(!empty($m)) $uniqueModes[$m] = $m;
+        if (! empty($m)) {
+            $uniqueModes[$m] = $m;
+        }
     }
 }
 sort($uniqueModes);
@@ -28,12 +30,12 @@ sort($uniqueModes);
     </div>
 </div>
 
-<?php if (isset($error)): ?>
+<?php if (isset($error)) { ?>
     <div class="bg-red-50 text-red-600 p-4 rounded-lg mb-6 flex items-center">
         <i data-lucide="alert-circle" class="w-5 h-5 mr-3"></i>
         <?= htmlspecialchars($error) ?>
     </div>
-<?php endif; ?>
+<?php } ?>
 
 <!-- Filters & Table -->
 <div class="space-y-4">
@@ -52,9 +54,9 @@ sort($uniqueModes);
             <div class="w-48">
                 <select id="filter-mode" class="custom-select form-filter" data-search="true">
                     <option value="" data-i18n="hotspot_profiles.all_modes">All Expired Modes</option>
-                    <?php foreach($uniqueModes as $m): ?>
+                    <?php foreach ($uniqueModes as $m) { ?>
                         <option value="<?= htmlspecialchars($m) ?>"><?= htmlspecialchars($m) ?></option>
-                    <?php endforeach; ?>
+                    <?php } ?>
                 </select>
             </div>
         </div>
@@ -77,8 +79,8 @@ sort($uniqueModes);
                 </tr>
             </thead>
             <tbody id="table-body">
-                <?php if (!empty($profiles)): ?>
-                    <?php foreach ($profiles as $profile): ?>
+                <?php if (! empty($profiles)) { ?>
+                    <?php foreach ($profiles as $profile) { ?>
                     <tr class="table-row-item group-row" 
                         data-id="<?= $profile['.id'] ?>"
                         data-name="<?= htmlspecialchars($profile['name'] ?? '') ?>"
@@ -113,13 +115,13 @@ sort($uniqueModes);
                             <span class="text-xs text-accents-5">dev</span>
                         </td>
                          <td>
-                            <?php if(!empty($profile['rate-limit'])): ?>
+                            <?php if (! empty($profile['rate-limit'])) { ?>
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
                                 <?= htmlspecialchars($profile['rate-limit']) ?>
                             </span>
-                            <?php else: ?>
+                            <?php } else { ?>
                                 <span class="text-xs text-accents-4">-</span>
-                            <?php endif; ?>
+                            <?php } ?>
                         </td>
                         <td class="text-sm text-accents-6">
                            <?= htmlspecialchars($profile['parent-queue'] ?? '-') ?>
@@ -155,8 +157,8 @@ sort($uniqueModes);
                             </div>
                         </td>
                     </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                    <?php } ?>
+                <?php } ?>
             </tbody>
         </table>
         
@@ -174,7 +176,7 @@ sort($uniqueModes);
     </div>
 </div>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>
 <script>
     class TableManager {
         constructor(rows, itemsPerPage = 10) {
@@ -421,11 +423,11 @@ sort($uniqueModes);
                         <label class="form-label" data-i18n="hotspot_profiles.form.address_pool">Address Pool</label>
                         <select name="address-pool" class="w-full">
                             <option value="none" data-i18n="common.forms.none">none</option>
-                            <?php foreach ($pools as $pool): ?>
-                                <?php if(isset($pool['name'])): ?>
+                            <?php foreach ($pools as $pool) { ?>
+                                <?php if (isset($pool['name'])) { ?>
                                 <option value="<?= htmlspecialchars($pool['name']) ?>"><?= htmlspecialchars($pool['name']) ?></option>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
+                                <?php } ?>
+                            <?php } ?>
                         </select>
                     </div>
                     <div class="space-y-1">
@@ -444,9 +446,9 @@ sort($uniqueModes);
                         <label class="form-label" data-i18n="hotspot_profiles.form.parent_queue">Parent Queue</label>
                         <select name="parent-queue" class="w-full">
                             <option value="none" data-i18n="common.forms.none">none</option>
-                            <?php foreach ($queues as $q): ?>
+                            <?php foreach ($queues as $q) { ?>
                                 <option value="<?= htmlspecialchars($q) ?>"><?= htmlspecialchars($q) ?></option>
-                            <?php endforeach; ?>
+                            <?php } ?>
                         </select>
                     </div>
                 </div>

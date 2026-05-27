@@ -1,12 +1,12 @@
 <?php
 // Plugins View
-$title = "Plugins";
+$title = 'Plugins';
 $no_main_container = true;
-require_once ROOT . '/app/Views/layouts/header_main.php';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 ?>
 
 <!-- Sub-Navbar Navigation -->
-<?php include ROOT . '/app/Views/layouts/sidebar_settings.php'; ?>
+<?php include ROOT.'/app/Views/layouts/sidebar_settings.php'; ?>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full flex flex-col">
 
@@ -38,7 +38,7 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-accents-2">
-                        <?php if(empty($plugins)): ?>
+                        <?php if (empty($plugins)) { ?>
                         <tr>
                             <td colspan="6" class="px-6 py-12 text-center text-accents-5">
                                 <div class="flex flex-col items-center gap-3">
@@ -50,8 +50,8 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                                 </div>
                             </td>
                         </tr>
-                        <?php else: ?>
-                            <?php foreach($plugins as $plugin): ?>
+                        <?php } else { ?>
+                            <?php foreach ($plugins as $plugin) { ?>
                             <tr class="group hover:bg-accents-1/30 transition-colors">
                                 <td class="px-6 py-4 font-medium text-foreground">
                                     <div class="flex items-center gap-3">
@@ -93,8 +93,8 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                                     </form>
                                 </td>
                             </tr>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+                            <?php } ?>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
@@ -126,4 +126,4 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
     }
 </script>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>

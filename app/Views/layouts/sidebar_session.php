@@ -1,10 +1,14 @@
 <?php
+
+use App\Helpers\LanguageHelper;
+use App\Models\Config;
+
 // Determine active link state
 $uri = $_SERVER['REQUEST_URI'] ?? '/';
 $isDashboard = strpos($uri, '/dashboard') !== false;
 $isGenerate = strpos($uri, '/hotspot/generate') !== false;
 $isTemplates = strpos($uri, '/settings/voucher-templates') !== false;
-$isSettings = ($uri === '/settings' || strpos($uri, '/settings/') !== false) && !$isTemplates;
+$isSettings = ($uri === '/settings' || strpos($uri, '/settings/') !== false) && ! $isTemplates;
 
 // Hotspot Group Active Check
 $hotspotPages = ['/hotspot/users', '/hotspot/profiles', '/hotspot/generate', '/hotspot/cookies'];
@@ -67,7 +71,7 @@ foreach ($systemPages as $page) {
 }
 
 // Fetch all sessions for the switcher
-$configModel = new \App\Models\Config();
+$configModel = new Config;
 $allSessions = $configModel->getAllSessions();
 
 // Find current session details to get Hotspot Name / IP
@@ -85,16 +89,22 @@ if (empty($sessionLabel)) {
 }
 
 // Helper for Session Initials (Kebab-friendly)
-$getInitials = function($name) {
-    if (empty($name)) return 'UN';
+$getInitials = function ($name) {
+    if (empty($name)) {
+        return 'UN';
+    }
     if (strpos($name, '-') !== false) {
         $parts = explode('-', $name);
         $initials = '';
         foreach ($parts as $part) {
-            if (!empty($part)) $initials .= substr($part, 0, 1);
+            if (! empty($part)) {
+                $initials .= substr($part, 0, 1);
+            }
         }
+
         return strtoupper(substr($initials, 0, 2));
     }
+
     return strtoupper(substr($name, 0, 2));
 };
 ?>
@@ -127,15 +137,15 @@ $getInitials = function($name) {
                             </button>
                             <div id="lang-dropdown-sidebar" class="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-48 bg-background/95 backdrop-blur-2xl border border-accents-2 rounded-xl shadow-xl overflow-hidden transition-all duration-200 ease-out origin-top opacity-0 scale-95 invisible pointer-events-none z-50 dropdown-bridge" onmouseenter="if(typeof menuTimeout !== 'undefined') clearTimeout(menuTimeout)">
                                 <div class="px-3 py-2 text-[10px] font-bold text-accents-4 uppercase tracking-widest border-b border-accents-2/50 bg-accents-1/50" data-i18n="sidebar.switch_language">Select Language</div>
-                                <?php 
-                                $languages = \App\Helpers\LanguageHelper::getAvailableLanguages();
-                                foreach ($languages as $lang): 
-                                ?>
+                                <?php
+                                $languages = LanguageHelper::getAvailableLanguages();
+foreach ($languages as $lang) {
+    ?>
                                 <button onclick="Mivo.modules.I18n.loadLanguage('<?= $lang['code'] ?>')" class="w-full text-left flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-accents-1 transition-colors text-accents-6 hover:text-foreground group/lang-item">
                                     <span class="fi fi-<?= $lang['flag'] ?> rounded-sm shadow-sm transition-transform group-hover/lang-item:scale-110"></span>
                                     <span><?= $lang['name'] ?></span>
                                 </button>
-                                <?php endforeach; ?>
+                                <?php } ?>
                             </div>
                         </div>
 
@@ -192,7 +202,7 @@ $getInitials = function($name) {
                         <div class="px-3 py-2 text-xs font-semibold text-accents-5 uppercase tracking-wider bg-accents-1/50 border-b border-accents-2" data-i18n="sidebar.switch_session">
                             Switch Session
                         </div>
-                        <?php foreach ($allSessions as $s): ?>
+                        <?php foreach ($allSessions as $s) { ?>
                         <a href="/<?= htmlspecialchars($s['session_name']) ?>/dashboard" class="flex items-center gap-3 px-3 py-2 text-sm hover:bg-accents-1 transition-colors group/item">
                             <div class="h-6 w-6 rounded flex-shrink-0 bg-accents-2 flex items-center justify-center text-[10px] font-bold">
                                  <?= $getInitials($s['session_name']) ?>
@@ -205,11 +215,11 @@ $getInitials = function($name) {
                                     <?= htmlspecialchars($s['hotspot_name'] ?: $s['ip_address']) ?>
                                 </span>
                             </div>
-                             <?php if ($session === $s['session_name']): ?>
+                             <?php if ($session === $s['session_name']) { ?>
                                 <i data-lucide="check" class="w-3 h-3 ml-auto text-primary"></i>
-                            <?php endif; ?>
+                            <?php } ?>
                         </a>
-                        <?php endforeach; ?>
+                        <?php } ?>
                     </div>
                     <div class="border-t border-accents-2 p-1 bg-accents-1/30">
                          <a href="/settings/add" class="flex items-center gap-2 px-3 py-2 text-sm hover:bg-accents-2 rounded-md transition-colors text-accents-5 hover:text-foreground">
@@ -428,7 +438,7 @@ $getInitials = function($name) {
                 <i data-lucide="chevron-right" class="!w-4 !h-4 !text-black dark:!text-white !flex-shrink-0 transition-colors"></i>
             </a>
             
-            <?php if(isset($_SESSION['user_id'])): ?>
+            <?php if (isset($_SESSION['user_id'])) { ?>
             <!-- Logout (System) -->
              <a href="/logout" class="group flex items-center justify-between px-3 py-2.5 rounded-xl bg-white/50 dark:bg-white/5 border border-accents-2 dark:border-white/10 hover:bg-red-500/10 hover:border-red-500/20 transition-all decoration-0 shadow-sm" title="Logout from Mivo">
                 <div class="flex items-center gap-3">
@@ -442,7 +452,7 @@ $getInitials = function($name) {
                 </div>
                 <i data-lucide="chevron-right" class="!w-4 !h-4 !text-black dark:!text-white !flex-shrink-0 group-hover:!text-red-500 transition-colors"></i>
             </a>
-            <?php endif; ?>
+            <?php } ?>
         </div>
     </aside>
 
@@ -465,15 +475,15 @@ $getInitials = function($name) {
                         </button>
                          <div id="lang-dropdown-mobile" class="absolute right-0 top-full mt-3 w-48 bg-background/90 backdrop-blur-xl border border-accents-2 rounded-xl shadow-xl overflow-hidden transition-all duration-200 ease-out origin-top-right opacity-0 scale-95 invisible pointer-events-none z-50 dropdown-bridge" onmouseenter="if(typeof menuTimeout !== 'undefined') clearTimeout(menuTimeout)">
                             <div class="px-3 py-2 text-[10px] font-bold text-accents-4 uppercase tracking-widest border-b border-accents-2/50 bg-accents-1/50" data-i18n="sidebar.switch_language">Select Language</div>
-                            <?php 
-                            $languages = \App\Helpers\LanguageHelper::getAvailableLanguages();
-                            foreach ($languages as $lang): 
-                            ?>
+                            <?php
+                            $languages = LanguageHelper::getAvailableLanguages();
+foreach ($languages as $lang) {
+    ?>
                             <button onclick="changeLanguage('<?= $lang['code'] ?>')" class="w-full text-left flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-accents-1 transition-colors text-accents-6 hover:text-foreground group/lang">
                                 <span class="fi fi-<?= $lang['flag'] ?> rounded-sm shadow-sm transition-transform group-hover/lang:scale-110"></span>
                                 <span><?= $lang['name'] ?></span>
                             </button>
-                            <?php endforeach; ?>
+                            <?php } ?>
                         </div>
                     </div>
 

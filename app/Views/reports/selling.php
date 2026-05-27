@@ -1,6 +1,8 @@
-<?php 
-$title = "Selling Report";
-require_once ROOT . '/app/Views/layouts/header_main.php'; 
+<?php
+use App\Helpers\FormatHelper;
+
+$title = 'Selling Report';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 ?>
 
 <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
@@ -39,7 +41,7 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
     <div class="card">
         <div class="text-sm text-accents-5 uppercase font-bold tracking-wide" data-i18n="reports.generated_stock">Generated Stock</div>
         <div class="text-3xl font-bold text-accents-6 mt-2">
-            <?= \App\Helpers\FormatHelper::formatCurrency($totalIncome, $currency) ?>
+            <?= FormatHelper::formatCurrency($totalIncome, $currency) ?>
         </div>
         <div class="text-xs text-accents-5 mt-1">
             <?= number_format($totalVouchers) ?> vouchers
@@ -50,7 +52,7 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
     <div class="card !bg-green-500/10 !border-green-500/20">
         <div class="text-sm text-green-600 dark:text-green-400 uppercase font-bold tracking-wide" data-i18n="reports.realized_income">Realized Income</div>
         <div class="text-3xl font-bold text-green-600 dark:text-green-400 mt-2">
-            <?= \App\Helpers\FormatHelper::formatCurrency($totalRealizedIncome ?? 0, $currency) ?>
+            <?= FormatHelper::formatCurrency($totalRealizedIncome ?? 0, $currency) ?>
         </div>
         <div class="text-xs text-green-600/70 dark:text-green-400/70 mt-1">
             <?= number_format($totalUsedVouchers ?? 0) ?> used
@@ -71,24 +73,24 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
             </tr>
         </thead>
         <tbody id="table-body">
-            <?php if (empty($report)): ?>
+            <?php if (empty($report)) { ?>
                 <tr>
                     <td colspan="5" class="p-8 text-center text-accents-5" data-i18n="reports.no_data">No sales data found.</td>
                 </tr>
-            <?php else: ?>
-                <?php foreach ($report as $row): ?>
+            <?php } else { ?>
+                <?php foreach ($report as $row) { ?>
                     <tr class="table-row-item">
                         <td class="font-medium">
                             <?= htmlspecialchars($row['date']) ?>
                         </td>
                         <td>
-                            <?php if($row['status'] === 'New'): ?>
+                            <?php if ($row['status'] === 'New') { ?>
                                 <span class="px-2 py-1 text-xs font-bold rounded-md bg-accents-2 text-accents-6">NEW</span>
-                            <?php elseif($row['status'] === 'Selling'): ?>
+                            <?php } elseif ($row['status'] === 'Selling') { ?>
                                 <span class="px-2 py-1 text-xs font-bold rounded-md bg-blue-500/10 text-blue-500 border border-blue-500/20">SELLING</span>
-                            <?php elseif($row['status'] === 'Sold Out'): ?>
+                            <?php } elseif ($row['status'] === 'Sold Out') { ?>
                                 <span class="px-2 py-1 text-xs font-bold rounded-md bg-green-500/10 text-green-500 border border-green-500/20">SOLD OUT</span>
-                            <?php endif; ?>
+                            <?php } ?>
                         </td>
                         <td class="text-right font-mono text-accents-6">
                             <?= number_format($row['count']) ?>
@@ -96,15 +98,15 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                         <td class="text-right font-mono text-green-500 font-medium">
                             <?= number_format($row['realized_count']) ?>
                             <span class="text-xs opacity-70 block">
-                                <?= \App\Helpers\FormatHelper::formatCurrency($row['realized_total'], $currency) ?>
+                                <?= FormatHelper::formatCurrency($row['realized_total'], $currency) ?>
                             </span>
                         </td>
                         <td class="text-right font-mono font-bold text-foreground">
-                            <?= \App\Helpers\FormatHelper::formatCurrency($row['total'], $currency) ?>
+                            <?= FormatHelper::formatCurrency($row['total'], $currency) ?>
                         </td>
                     </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
+                <?php } ?>
+            <?php } ?>
         </tbody>
     </table>
 </div>
@@ -187,4 +189,4 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
     }
 </script>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>

@@ -2,21 +2,22 @@
 
 namespace App\Core;
 
-class Env {
-    
+class Env
+{
     /**
      * Load environment variables from .env file
-     * 
-     * @param string $path Path to .env file
+     *
+     * @param  string  $path  Path to .env file
      * @return void
      */
-    public static function load($path) {
-        if (!file_exists($path)) {
+    public static function load($path)
+    {
+        if (! file_exists($path)) {
             return;
         }
 
         $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        
+
         foreach ($lines as $line) {
             // Ignore comments
             if (strpos(trim($line), '#') === 0) {
@@ -25,8 +26,8 @@ class Env {
 
             // Parse KEY=VALUE
             if (strpos($line, '=') !== false) {
-                list($key, $value) = explode('=', $line, 2);
-                
+                [$key, $value] = explode('=', $line, 2);
+
                 $key = trim($key);
                 $value = trim($value);
 
@@ -37,7 +38,7 @@ class Env {
                     $value = substr($value, 1, -1);
                 }
 
-                if (!array_key_exists($key, $_SERVER) && !array_key_exists($key, $_ENV)) {
+                if (! array_key_exists($key, $_SERVER) && ! array_key_exists($key, $_ENV)) {
                     putenv(sprintf('%s=%s', $key, $value));
                     $_ENV[$key] = $value;
                     $_SERVER[$key] = $value;

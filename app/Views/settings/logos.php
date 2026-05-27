@@ -1,11 +1,11 @@
 <?php
-$title = "Logo Management";
+$title = 'Logo Management';
 $no_main_container = true;
-require_once ROOT . '/app/Views/layouts/header_main.php';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 ?>
 
 <!-- Sub-Navbar Navigation -->
-<?php include ROOT . '/app/Views/layouts/sidebar_settings.php'; ?>
+<?php include ROOT.'/app/Views/layouts/sidebar_settings.php'; ?>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full flex flex-col">
 
@@ -39,13 +39,13 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
 
 <!-- Gallery Section -->
 <section>
-    <?php if (empty($logos)): ?>
+    <?php if (empty($logos)) { ?>
         <div class="text-center py-12">
             <p class="text-accents-5" data-i18n="settings.no_logos">No logos uploaded yet.</p>
         </div>
-    <?php else: ?>
+    <?php } else { ?>
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-            <?php foreach ($logos as $logo): ?>
+            <?php foreach ($logos as $logo) { ?>
             <div class="group relative card !p-0 overflow-hidden border border-accents-2 bg-background hover:shadow-md transition-all">
                 <!-- Image Preview -->
                 <div class="aspect-square flex items-center justify-center p-4 bg-accents-1 relative" style="background-image: linear-gradient(45deg, #e5e5e5 25%, transparent 25%), linear-gradient(-45deg, #e5e5e5 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #e5e5e5 75%), linear-gradient(-45deg, transparent 75%, #e5e5e5 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px;">
@@ -80,9 +80,9 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                     </div>
                 </div>
             </div>
-            <?php endforeach; ?>
+            <?php } ?>
         </div>
-    <?php endif; ?>
+    <?php } ?>
 </section>
         </div> <!-- End Space-y-8 -->
     </div> <!-- End Content Area -->
@@ -118,4 +118,4 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
         });
     </script>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>

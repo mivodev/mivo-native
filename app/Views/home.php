@@ -1,4 +1,7 @@
-<?php require_once ROOT . '/app/Views/layouts/header_main.php'; ?>
+<?php
+use App\Config\SiteConfig;
+
+require_once ROOT.'/app/Views/layouts/header_main.php'; ?>
 
 <div class="w-full max-w-4xl mx-auto py-8 md:py-16 px-4 sm:px-6 text-center">
     <div class="mb-8 flex justify-center">
@@ -8,7 +11,7 @@
         </div>
     </div>
     
-    <h1 class="text-4xl font-extrabold tracking-tight mb-4"><?= \App\Config\SiteConfig::APP_FULL_NAME ?></h1>
+    <h1 class="text-4xl font-extrabold tracking-tight mb-4"><?= SiteConfig::APP_FULL_NAME ?></h1>
     <p class="text-xl text-accents-5 mb-12 max-w-2xl mx-auto" data-i18n="home.subtitle">
         A modern, lightweight MikroTik Hotspot Manager built for performance and simplicity.
     </p>
@@ -23,7 +26,7 @@
             <p class="text-sm text-accents-5" data-i18n="home.manage_routers_desc">Configure RouterOS connections and view status.</p>
         </a>
 
-        <a href="<?= \App\Config\SiteConfig::REPO_URL ?>" target="_blank" class="group card hover:border-foreground transition-all duration-200 text-left">
+        <a href="<?= SiteConfig::REPO_URL ?>" target="_blank" class="group card hover:border-foreground transition-all duration-200 text-left">
              <div class="h-10 w-10 bg-accents-1 rounded-lg flex items-center justify-center mb-4 group-hover:bg-foreground group-hover:text-background transition-colors">
                 <i data-lucide="github" class="w-5 h-5"></i>
             </div>
@@ -33,12 +36,12 @@
     </div>
 
     <!-- Quick Router List if available -->
-    <?php 
-    $quickRouters = array_filter($routers, function($r) {
+    <?php
+    $quickRouters = array_filter($routers, function ($r) {
         return isset($r['quick_access']) && $r['quick_access'] == 1;
     });
-    ?>
-    <?php if (!empty($quickRouters)): ?>
+?>
+    <?php if (! empty($quickRouters)) { ?>
         <div class="text-left max-w-4xl mx-auto">
             <h2 class="text-sm font-semibold text-accents-5 uppercase tracking-wider mb-4" data-i18n="home.quick_access">Quick Access</h2>
             <div class="table-container">
@@ -54,7 +57,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($quickRouters as $router): ?>
+                        <?php foreach ($quickRouters as $router) { ?>
                         <tr>
                             <td>
                                 <div class="flex items-center">
@@ -79,12 +82,12 @@
                                 </a>
                             </td>
                         </tr>
-                        <?php endforeach; ?>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
         </div>
-    <?php endif; ?>
+    <?php } ?>
 </div>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>

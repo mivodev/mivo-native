@@ -90,7 +90,7 @@
         $lines = file($file);
         $start = max(0, $line - 6);
         $end = min(count($lines), $line + 5);
-        
+
         for ($i = $start; $i < $end; $i++) {
             $snippet[$i + 1] = $lines[$i];
         }
@@ -135,13 +135,13 @@
                             </div>
                             <div class="p-0 overflow-x-auto bg-[#0d1117] text-gray-300">
                                 <table class="w-full text-xs md:text-sm">
-                                    <?php foreach ($snippet as $num => $code): ?>
+                                    <?php foreach ($snippet as $num => $code) { ?>
                                     <?php $isErrorLine = ($num == $line); ?>
                                     <tr class="<?= $isErrorLine ? 'bg-red-500/20' : '' ?>">
                                         <td class="text-right px-4 py-1 select-none text-gray-600 border-r border-[#30363d] w-12 bg-[#0d1117]"><?= $num ?></td>
                                         <td class="px-4 py-1 whitespace-pre break-normal font-mono <?= $isErrorLine ? 'text-white font-bold' : 'text-gray-300' ?>"><?= htmlspecialchars($code) ?></td>
                                     </tr>
-                                    <?php endforeach; ?>
+                                    <?php } ?>
                                 </table>
                             </div>
                         </div>

@@ -1,6 +1,6 @@
-<?php 
-    $title = 'MIVO Login';
-    include ROOT . '/app/Views/layouts/header_public.php'; 
+<?php
+$title = 'MIVO Login';
+include ROOT.'/app/Views/layouts/header_public.php';
 ?>
 
     <!-- Login Container -->
@@ -53,7 +53,7 @@
     </div>
     </main>
 
-    <?php include ROOT . '/app/Views/layouts/footer_public.php'; ?>
+    <?php include ROOT.'/app/Views/layouts/footer_public.php'; ?>
 
 
 

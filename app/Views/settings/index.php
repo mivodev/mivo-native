@@ -1,11 +1,11 @@
 <?php
-$title = "Settings";
+$title = 'Settings';
 $no_main_container = true;
-require_once ROOT . '/app/Views/layouts/header_main.php';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 ?>
 
 <!-- Sub-Navbar Navigation -->
-<?php include ROOT . '/app/Views/layouts/sidebar_settings.php'; ?>
+<?php include ROOT.'/app/Views/layouts/sidebar_settings.php'; ?>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full flex flex-col">
 
@@ -27,7 +27,7 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                 </button>
             </div>
 
-            <?php if (empty($routers)): ?>
+            <?php if (empty($routers)) { ?>
                 <div class="card flex flex-col items-center justify-center py-16 text-center border-dashed">
                     <div class="rounded-full bg-accents-1 p-4 mb-4">
                         <i data-lucide="server-off" class="w-8 h-8 text-accents-4"></i>
@@ -38,7 +38,7 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                         <i data-lucide="plus" class="w-4 h-4 mr-2"></i> <span data-i18n="routers.add_router_title">Connect Router</span>
                     </button>
                 </div>
-            <?php else: ?>
+            <?php } else { ?>
                 <div class="table-container">
                     <table class="table-glass">
                         <thead>
@@ -52,7 +52,7 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($routers as $router): ?>
+                            <?php foreach ($routers as $router) { ?>
                             <tr class="router-row"
                                 data-id="<?= $router['id'] ?>"
                                 data-sessname="<?= htmlspecialchars($router['session_name']) ?>"
@@ -72,9 +72,9 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                                         <div>
                                             <div class="text-sm font-medium text-foreground flex items-center gap-2">
                                                 <?= htmlspecialchars($router['session_name']) ?>
-                                                <?php if(isset($router['quick_access']) && $router['quick_access'] == 1): ?>
+                                                <?php if (isset($router['quick_access']) && $router['quick_access'] == 1) { ?>
                                                     <i data-lucide="star" class="w-3 h-3 text-yellow-500 fill-current" title="Quick Access Enabled"></i>
-                                                <?php endif; ?>
+                                                <?php } ?>
                                             </div>
                                             <div class="text-xs text-accents-5">ID: <?= $router['id'] ?></div>
                                         </div>
@@ -101,7 +101,7 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                                     </form>
                                 </td>
                             </tr>
-                            <?php endforeach; ?>
+                            <?php } ?>
                         </tbody>
                     </table>
                     <div class="bg-accents-1 px-4 py-3 border-t border-accents-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-0 sm:px-6">
@@ -113,7 +113,7 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                           </button>
                     </div>
                 </div>
-            <?php endif; ?>
+            <?php } ?>
         </div>
     </div>
 
@@ -343,4 +343,4 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
     }
 </script>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>

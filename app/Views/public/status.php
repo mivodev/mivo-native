@@ -1,6 +1,6 @@
-<?php 
-    $title = 'Check Voucher Status';
-    include ROOT . '/app/Views/layouts/header_public.php'; 
+<?php
+$title = 'Check Voucher Status';
+include ROOT.'/app/Views/layouts/header_public.php';
 ?>
 
     <!-- Main Container -->
@@ -51,7 +51,7 @@
     </div>
     </main>
 
-    <?php include ROOT . '/app/Views/layouts/footer_public.php'; ?>
+    <?php include ROOT.'/app/Views/layouts/footer_public.php'; ?>
 
     <!-- Logic Script -->
     <script>

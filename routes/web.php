@@ -1,22 +1,22 @@
 <?php
 
-use App\Controllers\InstallController;
 use App\Controllers\AuthController;
-use App\Controllers\HomeController;
-use App\Controllers\PublicStatusController;
-use App\Controllers\SettingsController;
-use App\Controllers\VoucherTemplateController;
-use App\Controllers\ProfileController;
-use App\Controllers\HotspotController;
-use App\Controllers\GeneratorController;
 use App\Controllers\DashboardController;
-use App\Controllers\TrafficController;
-use App\Controllers\ReportController;
-use App\Controllers\LogController;
-use App\Controllers\SystemController;
-use App\Controllers\SchedulerController;
 use App\Controllers\DhcpController;
+use App\Controllers\GeneratorController;
+use App\Controllers\HomeController;
+use App\Controllers\HotspotController;
+use App\Controllers\InstallController;
+use App\Controllers\LogController;
+use App\Controllers\ProfileController;
+use App\Controllers\PublicStatusController;
 use App\Controllers\QuickPrintController;
+use App\Controllers\ReportController;
+use App\Controllers\SchedulerController;
+use App\Controllers\SettingsController;
+use App\Controllers\SystemController;
+use App\Controllers\TrafficController;
+use App\Controllers\VoucherTemplateController;
 
 // -----------------------------------------------------------------------------
 // Public Routes (No Auth Required)
@@ -32,7 +32,7 @@ $router->post('/login', [AuthController::class, 'login']);
 $router->get('/logout', [AuthController::class, 'logout']);
 
 // Public Status Check (Requires Valid Router Session, but NO Auth)
-$router->group(['middleware' => 'router.valid'], function($router) {
+$router->group(['middleware' => 'router.valid'], function ($router) {
     $router->get('/{session}/status', [PublicStatusController::class, 'index']);
 });
 
@@ -42,13 +42,11 @@ $router->get('/test-alert', [HomeController::class, 'testAlert']);
 // Plugin Language Route - DEPRECATED
 // Plugins now handle their own routing via Hooks::addAction('router_init')
 
-
-
 // -----------------------------------------------------------------------------
 // Protected Admin Routes (Requires Auth)
 // -----------------------------------------------------------------------------
 
-$router->group(['middleware' => 'auth'], function($router) {
+$router->group(['middleware' => 'auth'], function ($router) {
 
     // Global Home / Design System
     $router->get('/', [HomeController::class, 'index']);
@@ -93,14 +91,13 @@ $router->group(['middleware' => 'auth'], function($router) {
     $router->post('/settings/plugins/upload', [SettingsController::class, 'uploadPlugin']);
     $router->post('/settings/plugins/delete', [SettingsController::class, 'deletePlugin']);
 
-
     // -------------------------------------------------------------------------
     // Router Context Routes (Requires Auth AND Valid Router Session)
     // -------------------------------------------------------------------------
     // These routes rely on {session} parameter and middleware checks if it exists.
-    
-    $router->group(['middleware' => 'router.valid'], function($router) {
-        
+
+    $router->group(['middleware' => 'router.valid'], function ($router) {
+
         // Dashboard
         $router->get('/{session}/dashboard', [DashboardController::class, 'index']);
 
@@ -167,7 +164,6 @@ $router->group(['middleware' => 'auth'], function($router) {
         $router->post('/{session}/quick-print/update', [QuickPrintController::class, 'update']);
         $router->post('/{session}/quick-print/delete', [QuickPrintController::class, 'delete']);
         $router->get('/{session}/quick-print/print/([a-zA-Z0-9_-]+)', [QuickPrintController::class, 'printPacket']);
-        
+
     }); // End Router Context Group
 }); // End Auth Group
-

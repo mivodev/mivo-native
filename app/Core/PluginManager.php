@@ -16,7 +16,7 @@ class PluginManager
 
     public function __construct()
     {
-        $this->pluginsDir = dirname(__DIR__, 2) . '/plugins'; // Root/plugins
+        $this->pluginsDir = dirname(__DIR__, 2).'/plugins'; // Root/plugins
     }
 
     /**
@@ -25,7 +25,7 @@ class PluginManager
     public function loadPlugins()
     {
         // Ensure plugins directory exists
-        if (!is_dir($this->pluginsDir)) {
+        if (! is_dir($this->pluginsDir)) {
             return;
         }
 
@@ -38,10 +38,10 @@ class PluginManager
                 continue;
             }
 
-            $pluginPath = $this->pluginsDir . '/' . $pluginName;
-            
+            $pluginPath = $this->pluginsDir.'/'.$pluginName;
+
             // Check if it is a directory and has specific plugin file
-            if (is_dir($pluginPath) && file_exists($pluginPath . '/plugin.php')) {
+            if (is_dir($pluginPath) && file_exists($pluginPath.'/plugin.php')) {
                 $this->loadPlugin($pluginName, $pluginPath);
             }
         }
@@ -52,23 +52,23 @@ class PluginManager
 
     /**
      * Load a single plugin
-     * 
-     * @param string $name Plugin folder name
-     * @param string $path Full path to plugin directory
+     *
+     * @param  string  $name  Plugin folder name
+     * @param  string  $path  Full path to plugin directory
      */
     private function loadPlugin($name, $path)
     {
         try {
-            require_once $path . '/plugin.php';
+            require_once $path.'/plugin.php';
             $this->activePlugins[] = $name;
         } catch (\Exception $e) {
-            error_log("Failed to load plugin [$name]: " . $e->getMessage());
+            error_log("Failed to load plugin [$name]: ".$e->getMessage());
         }
     }
 
     /**
      * Get list of loaded plugins
-     * 
+     *
      * @return array
      */
     public function getActivePlugins()

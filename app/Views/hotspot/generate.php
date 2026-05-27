@@ -1,5 +1,5 @@
-<?php require_once ROOT . '/app/Views/layouts/header_main.php'; ?>
-<?php require_once ROOT . '/app/Views/layouts/sidebar_session.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/header_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/sidebar_session.php'; ?>
 
 <!-- Content Inside max-w-7xl (Opened by sidebar.php) -->
 
@@ -51,13 +51,13 @@
                             <label class="block text-sm font-medium text-accents-6" data-i18n="hotspot_generate.form.server">Server</label>
                             <select name="server" class="custom-select w-full" data-search="true">
                                 <option value="all">all</option>
-                                <?php if(isset($servers) && is_array($servers)): ?>
-                                    <?php foreach($servers as $srv): ?>
+                                <?php if (isset($servers) && is_array($servers)) { ?>
+                                    <?php foreach ($servers as $srv) { ?>
                                         <option value="<?= htmlspecialchars($srv['name']) ?>">
                                             <?= htmlspecialchars($srv['name']) ?>
                                         </option>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
+                                    <?php } ?>
+                                <?php } ?>
                             </select>
                             <p class="text-xs text-accents-5" data-i18n="hotspot_generate.form.server_help">Target Hotspot Instance.</p>
                         </div>
@@ -93,9 +93,9 @@
                         <div class="space-y-2">
                             <label class="block text-sm font-medium text-accents-6" data-i18n="hotspot_generate.form.user_length">Name Length</label>
                             <select name="userLength" class="custom-select w-full">
-                                <?php for($i=3; $i<=8; $i++): ?>
-                                <option value="<?= $i ?>" <?= $i==4 ? 'selected' : '' ?>><?= $i ?></option>
-                                <?php endfor; ?>
+                                <?php for ($i = 3; $i <= 8; $i++) { ?>
+                                <option value="<?= $i ?>" <?= $i == 4 ? 'selected' : '' ?>><?= $i ?></option>
+                                <?php } ?>
                             </select>
                              <p class="text-xs text-accents-5" data-i18n="hotspot_generate.form.name_length_help">Length of username/password.</p>
                         </div>
@@ -137,11 +137,11 @@
                         <div class="space-y-2">
                             <label class="block text-sm font-medium text-accents-6" data-i18n="hotspot_generate.form.profile">Profile</label>
                             <select name="profile" class="custom-select w-full" required data-search="true">
-                                <?php foreach ($profiles as $profile): ?>
+                                <?php foreach ($profiles as $profile) { ?>
                                     <option value="<?= htmlspecialchars($profile['name']) ?>">
                                         <?= htmlspecialchars($profile['name']) ?>
                                     </option>
-                                <?php endforeach; ?>
+                                <?php } ?>
                             </select>
                              <p class="text-xs text-accents-5" data-i18n="hotspot_generate.form.profile_help">Apply speed limits from profile.</p>
                         </div>
@@ -247,7 +247,7 @@
 </div>
 
 <!-- Footer closes the divs opened in sidebar.php -->
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         // Initialize Custom Selects with Search

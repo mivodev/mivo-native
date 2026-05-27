@@ -1,7 +1,7 @@
 <?php
 // Quick Print Dashboard (Card View)
 $title = 'Quick Print';
-require_once ROOT . '/app/Views/layouts/header_main.php';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 ?>
 
 <div class="space-y-6">
@@ -24,7 +24,7 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
 
     <!-- Cards Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        <?php if (empty($packages)): ?>
+        <?php if (empty($packages)) { ?>
         <div class="col-span-full flex flex-col items-center justify-center p-12 border-2 border-dashed border-accents-2 rounded-lg text-accents-5">
             <i data-lucide="printer" class="w-12 h-12 mb-4 opacity-50"></i>
             <p class="text-lg font-medium" data-i18n="quick_print.no_packages">No Packages Found</p>
@@ -33,8 +33,8 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                 Create Package
             </a>
         </div>
-        <?php else: ?>
-            <?php foreach ($packages as $pkg): ?>
+        <?php } else { ?>
+            <?php foreach ($packages as $pkg) { ?>
             <!-- Card -->
             <div class="card relative group overflow-hidden hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 p-0">
                 <!-- Color Header -->
@@ -78,13 +78,13 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                         <span data-i18n="quick_print.print_voucher">Print Voucher</span>
                     </button>
                     
-                    <?php if(!empty($pkg['comment'])): ?>
+                    <?php if (! empty($pkg['comment'])) { ?>
                     <p class="text-xs text-accents-4 text-center mt-3 truncate"><?= htmlspecialchars($pkg['comment']) ?></p>
-                    <?php endif; ?>
+                    <?php } ?>
                 </div>
             </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
+            <?php } ?>
+        <?php } ?>
     </div>
 </div>
 
@@ -103,4 +103,4 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
     }
 </script>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>

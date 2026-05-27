@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?? 'MIVO' ?></title>
+    <title><?php
+
+use App\Core\Hooks;
+
+?><?= $title ?? 'MIVO' ?></title>
     <!-- Tailwind CSS (Local) -->
     <link rel="stylesheet" href="/assets/css/styles.css">
     <script src="/assets/js/lucide.min.js"></script>
@@ -29,7 +33,7 @@
             document.documentElement.classList.remove('dark');
         }
     </script>
-    <?php \App\Core\Hooks::doAction('mivo_head'); ?>
+    <?php Hooks::doAction('mivo_head'); ?>
 </head>
 <body class="bg-background text-foreground antialiased min-h-screen relative overflow-hidden font-sans selection:bg-accents-2 selection:text-foreground flex flex-col">
     

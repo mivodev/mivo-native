@@ -1,13 +1,15 @@
 <?php
-$title = "Hotspot Hosts";
-require_once ROOT . '/app/Views/layouts/header_main.php';
+$title = 'Hotspot Hosts';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 
 // Filter Data
 $uniqueServers = [];
-if (!empty($items)) {
+if (! empty($items)) {
     foreach ($items as $item) {
         $s = $item['server'] ?? '';
-        if(!empty($s)) $uniqueServers[$s] = $s;
+        if (! empty($s)) {
+            $uniqueServers[$s] = $s;
+        }
     }
 }
 sort($uniqueServers);
@@ -25,12 +27,12 @@ sort($uniqueServers);
     </div>
 </div>
 
-<?php if ($error): ?>
+<?php if ($error) { ?>
     <div class="bg-red-50 text-red-600 p-4 rounded-lg mb-6 flex items-center">
         <i data-lucide="alert-circle" class="w-5 h-5 mr-3"></i>
         <?= htmlspecialchars($error) ?>
     </div>
-<?php endif; ?>
+<?php } ?>
 
 <div class="space-y-4">
     <!-- Filter Bar -->
@@ -47,9 +49,9 @@ sort($uniqueServers);
             <div class="w-40">
                 <select id="filter-server" class="custom-select" data-search="true">
                     <option value="" data-i18n="hotspot_active.filter_server">All Servers</option>
-                    <?php foreach($uniqueServers as $s): ?>
+                    <?php foreach ($uniqueServers as $s) { ?>
                         <option value="<?= htmlspecialchars($s) ?>"><?= htmlspecialchars($s) ?></option>
-                    <?php endforeach; ?>
+                    <?php } ?>
                 </select>
             </div>
         </div>
@@ -67,8 +69,8 @@ sort($uniqueServers);
                 </tr>
             </thead>
             <tbody id="table-body">
-                <?php if (!empty($items)): ?>
-                    <?php foreach ($items as $item): ?>
+                <?php if (! empty($items)) { ?>
+                    <?php foreach ($items as $item) { ?>
                     <tr class="table-row-item"
                          data-server="<?= htmlspecialchars($item['server'] ?? '') ?>"
                          data-mac="<?= strtolower($item['mac-address'] ?? '') ?>"
@@ -96,8 +98,8 @@ sort($uniqueServers);
                             <div class="text-sm text-accents-5 italic"><?= htmlspecialchars($item['comment'] ?? '-') ?></div>
                         </td>
                     </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                    <?php } ?>
+                <?php } ?>
             </tbody>
         </table>
         
@@ -115,7 +117,7 @@ sort($uniqueServers);
     </div>
 </div>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>
 <script>
     class TableManager {
         constructor(rows, itemsPerPage = 10) {

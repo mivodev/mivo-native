@@ -1,4 +1,4 @@
-<?php require_once ROOT . '/app/Views/layouts/header_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/header_main.php'; ?>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="flex items-center justify-between mb-8">
@@ -393,4 +393,4 @@
 
 </div>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>

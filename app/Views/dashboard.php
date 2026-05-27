@@ -1,5 +1,8 @@
 <?php
-require_once ROOT . '/app/Views/layouts/header_main.php';
+
+use App\Helpers\FormatHelper;
+
+require_once ROOT.'/app/Views/layouts/header_main.php';
 ?>
 
 <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
@@ -35,7 +38,7 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
             </div>
              <div class="flex justify-between">
                 <span class="text-accents-5" data-i18n="dashboard.uptime">Uptime</span>
-                <span class="font-medium"><?= \App\Helpers\FormatHelper::elapsedTime($resource['uptime'] ?? '-') ?></span>
+                <span class="font-medium"><?= FormatHelper::elapsedTime($resource['uptime'] ?? '-') ?></span>
             </div>
         </div>
     </div>
@@ -61,14 +64,14 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
         <div class="space-y-1">
             <div class="flex justify-between text-sm">
                 <span data-i18n="dashboard.memory">Memory</span>
-                <span class="text-accents-5"><?= \App\Helpers\FormatHelper::formatBytes($resource['free-memory']??0, 1) ?> <span data-i18n="dashboard.free">Free</span></span>
+                <span class="text-accents-5"><?= FormatHelper::formatBytes($resource['free-memory'] ?? 0, 1) ?> <span data-i18n="dashboard.free">Free</span></span>
             </div>
             <div class="h-2 w-full bg-accents-2 rounded-full overflow-hidden">
-                <?php 
-                    $totalMem = ($resource['total-memory']??1);
-                    $freeMem = ($resource['free-memory']??0);
-                    $usedMemP = (($totalMem - $freeMem) / $totalMem) * 100;
-                ?>
+                <?php
+                    $totalMem = ($resource['total-memory'] ?? 1);
+$freeMem = ($resource['free-memory'] ?? 0);
+$usedMemP = (($totalMem - $freeMem) / $totalMem) * 100;
+?>
                 <div class="h-full bg-blue-600 dark:bg-blue-500" style="width:<?= $usedMemP ?>%"></div>
             </div>
         </div>
@@ -76,14 +79,14 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
         <div class="space-y-1">
             <div class="flex justify-between text-sm">
                 <span data-i18n="dashboard.hdd">HDD</span>
-                <span class="text-accents-5"><?= \App\Helpers\FormatHelper::formatBytes($resource['free-hdd-space']??0, 1) ?> <span data-i18n="dashboard.free">Free</span></span>
+                <span class="text-accents-5"><?= FormatHelper::formatBytes($resource['free-hdd-space'] ?? 0, 1) ?> <span data-i18n="dashboard.free">Free</span></span>
             </div>
              <div class="h-2 w-full bg-accents-2 rounded-full overflow-hidden">
-                <?php 
-                    $totalHdd = ($resource['total-hdd-space']??1);
-                    $freeHdd = ($resource['free-hdd-space']??0);
-                    $usedHddP = (($totalHdd - $freeHdd) / $totalHdd) * 100;
-                ?>
+                <?php
+    $totalHdd = ($resource['total-hdd-space'] ?? 1);
+$freeHdd = ($resource['free-hdd-space'] ?? 0);
+$usedHddP = (($totalHdd - $freeHdd) / $totalHdd) * 100;
+?>
                 <div class="h-full bg-foreground" style="width:<?= $usedHddP ?>%"></div>
             </div>
         </div>
@@ -353,4 +356,4 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
     });
 </script>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>

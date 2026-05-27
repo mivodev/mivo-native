@@ -1,6 +1,6 @@
 <?php
-$title = "Hotspot Cookies";
-require_once ROOT . '/app/Views/layouts/header_main.php';
+$title = 'Hotspot Cookies';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 ?>
 
 <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
@@ -18,12 +18,12 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
     </div>
 </div>
 
-<?php if (isset($error) && $error): ?>
+<?php if (isset($error) && $error) { ?>
     <div class="bg-red-50 text-red-600 p-4 rounded-lg mb-6 flex items-center">
         <i data-lucide="alert-circle" class="w-5 h-5 mr-3"></i>
         <?= htmlspecialchars($error) ?>
     </div>
-<?php endif; ?>
+<?php } ?>
 
 <div class="space-y-4">
     <!-- Filter Bar -->
@@ -49,8 +49,8 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                 </tr>
             </thead>
             <tbody id="table-body">
-                <?php if (!empty($cookies) && is_array($cookies)): ?>
-                    <?php foreach ($cookies as $cookie): ?>
+                <?php if (! empty($cookies) && is_array($cookies)) { ?>
+                    <?php foreach ($cookies as $cookie) { ?>
                     <tr class="table-row-item"
                          data-user="<?= strtolower($cookie['user'] ?? '') ?>"
                          data-mac="<?= strtolower($cookie['mac-address'] ?? '') ?>"
@@ -80,8 +80,8 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
                             </div>
                         </td>
                     </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                    <?php } ?>
+                <?php } ?>
             </tbody>
         </table>
         
@@ -99,7 +99,7 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
     </div>
 </div>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>
 <script>
     class TableManager {
         constructor(rows, itemsPerPage = 10) {

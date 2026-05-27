@@ -1,23 +1,32 @@
 <?php
-$title = "Hotspot Users";
-require_once ROOT . '/app/Views/layouts/header_main.php';
+
+use App\Helpers\FormatHelper;
+use App\Helpers\HotspotHelper;
+use App\Helpers\ViewHelper;
+
+$title = 'Hotspot Users';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 
 // Prepare Filters Data
 $uniqueProfiles = [];
 $uniqueComments = [];
-if (!empty($users)) {
+if (! empty($users)) {
     foreach ($users as $u) {
         $p = $u['profile'] ?? 'default';
         $c = $u['comment'] ?? '';
-        
+
         $uniqueProfiles[$p] = $p; // Key-Value distinct
-        if(!empty($c)) $uniqueComments[$c] = $c;
+        if (! empty($c)) {
+            $uniqueComments[$c] = $c;
+        }
     }
 }
 sort($uniqueProfiles);
 
 // $servers is passed from controller
-if (!isset($servers)) $servers = [];
+if (! isset($servers)) {
+    $servers = [];
+}
 
 sort($uniqueComments);
 ?>
@@ -37,12 +46,12 @@ sort($uniqueComments);
     </div>
 </div>
 
-<?php if ($error): ?>
+<?php if ($error) { ?>
     <div class="bg-red-50 text-red-600 p-4 rounded-lg mb-6 flex items-center">
         <i data-lucide="alert-circle" class="w-5 h-5 mr-3"></i>
         <?= htmlspecialchars($error) ?>
     </div>
-<?php endif; ?>
+<?php } ?>
 
 <!-- Batch Action Toolbar -->
 <div id="batch-toolbar" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-foreground text-background px-6 py-3 rounded-full shadow-lg z-50 flex items-center gap-4 transition-all duration-300 translate-y-20 opacity-0">
@@ -73,17 +82,17 @@ sort($uniqueComments);
             <div class="w-40">
                 <select id="filter-profile" class="custom-select form-filter" data-search="true">
                     <option value="" data-i18n="common.all_profiles">All Profiles</option>
-                    <?php foreach($uniqueProfiles as $p): ?>
+                    <?php foreach ($uniqueProfiles as $p) { ?>
                         <option value="<?= htmlspecialchars($p) ?>"><?= htmlspecialchars($p) ?></option>
-                    <?php endforeach; ?>
+                    <?php } ?>
                 </select>
             </div>
             <div class="w-40">
                 <select id="filter-comment" class="custom-select form-filter" data-search="true">
                     <option value="" data-i18n="common.all_comments">All Comments</option>
-                    <?php foreach($uniqueComments as $c): ?>
+                    <?php foreach ($uniqueComments as $c) { ?>
                         <option value="<?= htmlspecialchars($c) ?>"><?= htmlspecialchars($c) ?></option>
-                    <?php endforeach; ?>
+                    <?php } ?>
                 </select>
             </div>
         </div>
@@ -109,14 +118,14 @@ sort($uniqueComments);
                 </tr>
             </thead>
             <tbody id="table-body">
-                <?php if (!empty($users)): ?>
-                    <?php foreach ($users as $user): ?>
+                <?php if (! empty($users)) { ?>
+                    <?php foreach ($users as $user) { ?>
                     <?php
                         // Helper to split time limit for editing (Simple parsing or raw passing)
                         // Assuming time limit format from router is like 1d2h3m or just 1h
                         // We will pass the raw string if we can't easily split, OR rely on a JS parser.
                         // For now let's pass raw limit-uptime.
-                        
+
                         // Just prepare some safe values
                         $id = $user['.id'];
                         $name = $user['name'] ?? '';
@@ -124,11 +133,11 @@ sort($uniqueComments);
                         $comment = $user['comment'] ?? '';
                         $server = $user['server'] ?? 'all';
                         $password = $user['password'] ?? '';
-                        
+
                         // Limits
                         $limitUptime = $user['limit-uptime'] ?? '';
                         $limitBytes = $user['limit-bytes-total'] ?? '';
-                    ?>
+                        ?>
                     <tr class="table-row-item" 
                         data-id="<?= htmlspecialchars($id) ?>"
                         data-name="<?= strtolower($name) ?>" 
@@ -152,10 +161,10 @@ sort($uniqueComments);
                                 <div class="flex-1 min-w-0">
                                     <div class="flex items-center justify-between gap-4">
                                         <div class="text-sm font-medium text-foreground truncate"><?= htmlspecialchars($name) ?></div>
-                                        <?php 
-                                            $status = \App\Helpers\HotspotHelper::getUserStatus($user);
-                                            echo \App\Helpers\ViewHelper::badge($status);
-                                        ?>
+                                        <?php
+                                                $status = HotspotHelper::getUserStatus($user);
+                        echo ViewHelper::badge($status);
+                        ?>
                                     </div>
                                     <div class="text-xs text-accents-5"><?= htmlspecialchars($password) ?></div>
                                 </div>
@@ -167,13 +176,13 @@ sort($uniqueComments);
                             </span>
                         </td>
                         <td>
-                            <div class="text-sm text-foreground"><?= \App\Helpers\FormatHelper::elapsedTime($user['uptime'] ?? '0s') ?></div>
-                            <div class="text-xs text-accents-5">Limit: <?= \App\Helpers\FormatHelper::elapsedTime($user['limit-uptime'] ?? 'unlimited') ?></div>
+                            <div class="text-sm text-foreground"><?= FormatHelper::elapsedTime($user['uptime'] ?? '0s') ?></div>
+                            <div class="text-xs text-accents-5">Limit: <?= FormatHelper::elapsedTime($user['limit-uptime'] ?? 'unlimited') ?></div>
                         </td>
                         <td>
                             <div class="text-xs text-accents-5 flex flex-col gap-1">
-                                <span class="flex items-center"><i data-lucide="arrow-down" class="w-3 h-3 mr-1 text-green-500"></i> <?= \App\Helpers\FormatHelper::formatBytes($user['bytes-in'] ?? 0) ?></span>
-                                <span class="flex items-center"><i data-lucide="arrow-up" class="w-3 h-3 mr-1 text-blue-500"></i> <?= \App\Helpers\FormatHelper::formatBytes($user['bytes-out'] ?? 0) ?></span>
+                                <span class="flex items-center"><i data-lucide="arrow-down" class="w-3 h-3 mr-1 text-green-500"></i> <?= FormatHelper::formatBytes($user['bytes-in'] ?? 0) ?></span>
+                                <span class="flex items-center"><i data-lucide="arrow-up" class="w-3 h-3 mr-1 text-blue-500"></i> <?= FormatHelper::formatBytes($user['bytes-out'] ?? 0) ?></span>
                             </div>
                         </td>
                         <td>
@@ -197,8 +206,8 @@ sort($uniqueComments);
                             </div>
                         </td>
                     </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                    <?php } ?>
+                <?php } ?>
             </tbody>
         </table>
         
@@ -216,7 +225,7 @@ sort($uniqueComments);
     </div>
 </div>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>
 <!-- Add/Edit User Template -->
 <template id="user-form-template">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 text-left">
@@ -248,9 +257,9 @@ sort($uniqueComments);
                     <div class="space-y-1 col-span-1 md:col-span-2">
                         <label class="form-label" data-i18n="hotspot_users.form.profile">Profile</label>
                         <select name="profile" class="w-full" data-search="true">
-                            <?php foreach($uniqueProfiles as $p): ?>
+                            <?php foreach ($uniqueProfiles as $p) { ?>
                                 <option value="<?= htmlspecialchars($p) ?>"><?= htmlspecialchars($p) ?></option>
-                            <?php endforeach; ?>
+                            <?php } ?>
                         </select>
                     </div>
 
@@ -259,17 +268,19 @@ sort($uniqueComments);
                         <label class="form-label" data-i18n="hotspot_users.form.server">Server</label>
                         <select name="server" class="w-full">
                             <option value="all">all</option>
-                            <?php 
-                            if (!empty($servers)):
-                                foreach($servers as $s): 
+                            <?php
+                            if (! empty($servers)) {
+                                foreach ($servers as $s) {
                                     $sName = $s['name'] ?? '';
-                                    if ($sName === 'all' || empty($sName)) continue; 
-                            ?>
+                                    if ($sName === 'all' || empty($sName)) {
+                                        continue;
+                                    }
+                                    ?>
                                 <option value="<?= htmlspecialchars($sName) ?>"><?= htmlspecialchars($sName) ?></option>
-                            <?php 
-                                endforeach; 
-                            endif;
-                            ?>
+                            <?php
+                                }
+                            }
+?>
                         </select>
                     </div>
 

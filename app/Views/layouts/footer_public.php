@@ -16,7 +16,13 @@
 
         <!-- Copyright Row -->
         <div class="text-xs text-accents-4 opacity-50">
-            <?= \App\Config\SiteConfig::getFooter() ?>
+            <?php
+
+use App\Config\SiteConfig;
+            use App\Core\Hooks;
+            use App\Helpers\FlashHelper;
+
+            ?><?= SiteConfig::getFooter() ?>
         </div>
     </footer>
 
@@ -28,8 +34,8 @@
             }
         });
         
-        <?php if (\App\Helpers\FlashHelper::has()): ?>
-            <?php $flash = \App\Helpers\FlashHelper::get(); ?>
+        <?php if (FlashHelper::has()) { ?>
+            <?php $flash = FlashHelper::get(); ?>
             document.addEventListener('DOMContentLoaded', () => {
                 // Map Flash Type to Lucide Icon & Color Class
                 const typeMap = {
@@ -77,8 +83,8 @@
                     showFlash();
                 }
             });
-        <?php endif; ?>
+        <?php } ?>
     </script>
-    <?php \App\Core\Hooks::doAction('mivo_footer'); ?>
+    <?php Hooks::doAction('mivo_footer'); ?>
 </body>
 </html>

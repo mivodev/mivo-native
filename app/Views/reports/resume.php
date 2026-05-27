@@ -1,6 +1,6 @@
 <?php
-$title = "Resume Report";
-require_once ROOT . '/app/Views/layouts/header_main.php';
+$title = 'Resume Report';
+require_once ROOT.'/app/Views/layouts/header_main.php';
 ?>
 
 <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
@@ -34,12 +34,12 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($daily as $date => $total): ?>
+            <?php foreach ($daily as $date => $total) { ?>
             <tr>
                 <td><?= $date ?></td>
                 <td class="text-right font-mono"><?= $currency ?> <?= number_format($total, 0, ',', '.') ?></td>
             </tr>
-            <?php endforeach; ?>
+            <?php } ?>
         </tbody>
     </table>
 </div>
@@ -54,12 +54,12 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
             </tr>
         </thead>
             <tbody>
-            <?php foreach ($monthly as $date => $total): ?>
+            <?php foreach ($monthly as $date => $total) { ?>
             <tr>
                 <td><?= $date ?></td>
                 <td class="text-right font-mono"><?= $currency ?> <?= number_format($total, 0, ',', '.') ?></td>
             </tr>
-            <?php endforeach; ?>
+            <?php } ?>
         </tbody>
     </table>
 </div>
@@ -74,12 +74,12 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
             </tr>
         </thead>
             <tbody>
-            <?php foreach ($yearly as $date => $total): ?>
+            <?php foreach ($yearly as $date => $total) { ?>
             <tr>
                 <td><?= $date ?></td>
                 <td class="text-right font-mono"><?= $currency ?> <?= number_format($total, 0, ',', '.') ?></td>
             </tr>
-            <?php endforeach; ?>
+            <?php } ?>
         </tbody>
     </table>
 </div>
@@ -114,4 +114,4 @@ require_once ROOT . '/app/Views/layouts/header_main.php';
     }
 </script>
 
-<?php require_once ROOT . '/app/Views/layouts/footer_main.php'; ?>
+<?php require_once ROOT.'/app/Views/layouts/footer_main.php'; ?>

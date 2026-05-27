@@ -6,7 +6,7 @@
 $currentQuery = $_GET;
 unset($currentQuery['template']); // Remove old template param
 $queryString = http_build_query($currentQuery);
-$baseUrl = strtok($_SERVER["REQUEST_URI"], '?');
+$baseUrl = strtok($_SERVER['REQUEST_URI'], '?');
 
 // If ids is missing (e.g. Quick Print single ID in segment), we don't need to append it if it's not in GET.
 // Logic: Reload current URL but with new template param.
@@ -16,13 +16,13 @@ $baseUrl = strtok($_SERVER["REQUEST_URI"], '?');
         <label style="font-size: 14px; font-weight: bold; color: #333;">Template:</label>
         <select onchange="changeTemplate(this.value)" style="padding: 5px; border: 1px solid #ccc; rounded: 4px;">
             <option value="default" <?= $currentTemplate === 'default' ? 'selected' : '' ?>>Default Thermal</option>
-            <?php if (!empty($templates)): ?>
-                <?php foreach ($templates as $t): ?>
-                    <option value="<?= $t['id'] ?>" <?= (string)$currentTemplate === (string)$t['id'] ? 'selected' : '' ?>>
+            <?php if (! empty($templates)) { ?>
+                <?php foreach ($templates as $t) { ?>
+                    <option value="<?= $t['id'] ?>" <?= (string) $currentTemplate === (string) $t['id'] ? 'selected' : '' ?>>
                         <?= htmlspecialchars($t['name']) ?>
                     </option>
-                <?php endforeach; ?>
-            <?php endif; ?>
+                <?php } ?>
+            <?php } ?>
         </select>
     </div>
     
